@@ -23,7 +23,7 @@ class ViewCardState extends State<ViewCard>{
   String title;
   String notes;
   DateTime startDate = DateTime.now();
-  DateTime dueDate;
+  DateTime dueDate = DateTime.now();
   int progress = 0;
 
   final scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -51,14 +51,14 @@ Widget _datePicker(DatePicker date){
         }
         setState(() {
           date == DatePicker.StartDate ? this.startDate = value : this.dueDate = value;
-      
         });
       });
     },
     child: ListTile(
       leading: date == DatePicker.StartDate ? new Text('Start date'): new Text('Due Date'),
-      title: new Text(new DateFormat('MMM, dd yyyy').format(this.startDate)),
+      title: date == DatePicker.StartDate ? new Text(new DateFormat('MMM, dd yyyy').format(this.startDate)): new Text(new DateFormat('MMM, dd yyyy').format(this.dueDate),
     )
+  )
   );
 }
 
