@@ -9,8 +9,8 @@ enum DatePicker {
 }
 
 class ViewCard extends StatefulWidget{
-  DBHelper dataManager;
-  ViewCard({DBHelper this.dataManager});
+  final DBHelper dataManager;
+  ViewCard({this.dataManager});
   static var routeName = '/viewCardRoute';
   @override
   ViewCardState createState() => new ViewCardState();
@@ -87,22 +87,18 @@ Widget _datePicker(DatePicker date){
               new TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: new InputDecoration(labelText: 'Notes'),
-                validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some Notes';
-                }
-              },
               ),
               _datePicker(DatePicker.StartDate),
               _datePicker(DatePicker.DueDate),
               new Container(
                 child: Column(
                   children: <Widget>[
-                    new Text('Progress percentage is ${this.progress}%'),
+                    new Text('Progress percentage at ${this.progress}%'),
                     new Slider(
                     min: 0.0,
                     max: 100.0,
                     value: this.progress.toDouble(),
+                    activeColor: this.progress == 100 ? Colors.green : Colors.white,
                     onChanged: (double value){changeProgress(value);}
                   )
                   ],
@@ -116,7 +112,7 @@ Widget _datePicker(DatePicker date){
                     if(formKey.currentState.validate()){
                       formKey.currentState.save();
                       var employee = Task(title,notes,startDate,dueDate,progress);
-                      await widget.dataManager.saveTask(employee);
+                      widget.dataManager.saveTask(employee);
                       scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Processing Data')));
                     }
                 },  
