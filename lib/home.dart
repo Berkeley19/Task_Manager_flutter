@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_app_tasks/model/task.dart';
 import 'package:project_app_tasks/viewCard.dart';
 import 'package:project_app_tasks/database/database.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -10,20 +11,28 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
     
-  DBHelper manager;
+  DataBaseHelper manager;
+  final scaffoldKey = new GlobalKey<HomePageState>();
   
   @override
   Widget build(BuildContext context){
-    this.manager = new DBHelper();
+    this.manager = new DataBaseHelper();
     return new Scaffold(
+      key: scaffoldKey,
       appBar: new AppBar(),
       body: mainList(),
       floatingActionButton: RaisedButton(
         child: Text("Create Task"),
         color: Colors.cyan,
-        onPressed: (){
-          var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard());
-          Navigator.of(context).push(route);
+        onPressed: ()async {
+          var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(dataManager: this.manager,));
+          var result = await Navigator.push(context, route);
+          if(result){
+            setState(() async  {
+              await this.manager.getTask();
+              // scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Processing Data'), duration: Duration(seconds: 2)));
+             });
+          }
         }
       ),
     );
@@ -52,7 +61,7 @@ class HomePageState extends State<HomePage>{
     return new GestureDetector(
       onTap: (){
         // to new page
-        var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard());
+        var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(dataManager: this.manager,));
         Navigator.of(context).push(route);
       },
       child: Padding(
@@ -72,7 +81,7 @@ class HomePageState extends State<HomePage>{
                     ),
                     new Expanded(
                         child: progressStack(
-                          task.progress, ProgressType.DueDate, createdAt: task.createdAt, dueTime: task.dueDate)
+                          task.progress, ProgressType.DueDate, startDate: task.startDate, dueTime: task.dueDate)
                     ),
                     new Expanded(
                         child: progressStack(task.progress, ProgressType.Progress)
@@ -86,14 +95,14 @@ class HomePageState extends State<HomePage>{
     );
   }
 
-  Widget progressStack(int progress, ProgressType type, {DateTime createdAt, DateTime dueTime}) {
+  Widget progressStack(int progress, ProgressType type, {DateTime startDate, DateTime dueTime}) {
     int globalProgress;
     double textProgress;
     switch(type){
       case ProgressType.DueDate:
         var dateNow = DateTime.now();
-        Duration dateDiff1 = dueTime.difference(createdAt);
-        Duration dateDiff2 = dateNow.difference(createdAt);
+        Duration dateDiff1 = dueTime.difference(startDate);
+        Duration dateDiff2 = dateNow.difference(startDate);
         textProgress = dateDiff2.inDays / dateDiff1.inDays;
         globalProgress = (textProgress * 100).toInt();
         break;

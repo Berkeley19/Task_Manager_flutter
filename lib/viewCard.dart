@@ -9,7 +9,7 @@ enum DatePicker {
 }
 
 class ViewCard extends StatefulWidget{
-  final DBHelper dataManager;
+  final DataBaseHelper dataManager;
   ViewCard({this.dataManager});
   static var routeName = '/viewCardRoute';
   @override
@@ -18,7 +18,7 @@ class ViewCard extends StatefulWidget{
 }
 
 class ViewCardState extends State<ViewCard>{
-  Task task = new Task("", "",  null,  null, 0);
+  Task task = new Task(null, null,  null,  null, 0);
 
   String title;
   String notes;
@@ -26,7 +26,6 @@ class ViewCardState extends State<ViewCard>{
   DateTime dueDate = DateTime.now();
   int progress = 0;
 
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
 
 void changeProgress(double value){
@@ -65,7 +64,6 @@ Widget _datePicker(DatePicker date){
  @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      key: scaffoldKey,
       appBar: new AppBar(
         title: new Text('New Task'),
       ),
@@ -98,7 +96,7 @@ Widget _datePicker(DatePicker date){
                     min: 0.0,
                     max: 100.0,
                     value: this.progress.toDouble(),
-                    activeColor: this.progress == 100 ? Colors.green : Colors.white,
+                    activeColor: this.progress == 100 ? Colors.green : Colors.deepOrange,
                     onChanged: (double value){changeProgress(value);}
                   )
                   ],
@@ -111,9 +109,11 @@ Widget _datePicker(DatePicker date){
                   onPressed: () async {
                     if(formKey.currentState.validate()){
                       formKey.currentState.save();
-                      var employee = Task(title,notes,startDate,dueDate,progress);
-                      widget.dataManager.saveTask(employee);
-                      scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Processing Data')));
+                      Map<String, dynamic> employee = Task(title,notes,this.startDate,this.dueDate,progress).toMap();
+                      print(employee);
+                      await widget.dataManager.saveTask(employee);
+                      print('added');
+                      Navigator.of(context).pop(true);
                     }
                 },  
                 child: new Text('Create Task'),),)

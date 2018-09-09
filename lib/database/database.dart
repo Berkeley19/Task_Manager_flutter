@@ -5,13 +5,26 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:project_app_tasks/model/task.dart';
 
-class DBHelper{
+class DataBaseHelper{
+
+  static final DataBaseHelper _instance = new DataBaseHelper.internal();
+  factory DataBaseHelper() => _instance;
+
+  final String taskTable = 'TaskTable';
+  final String columnId = 'id';
+  final String columnTitle = 'title';
+  final String columnNotes = 'notes';
+  final String columnDueDate = 'due date';
+  final String columnStartDate = 'start date';
+  final String columnProgress = 'progress';
+
 
   List<Task> completed = [];
   List<Task> inProgress = [];
-  // static final DBHelper _instance = new DBHelper().internal();
-  // factory DBHelper()=>_instance;
+
   static Database _db;
+
+  DataBaseHelper.internal();
 
   Future<Database> get db async {
     if(_db != null){
@@ -21,58 +34,50 @@ class DBHelper{
     return _db;
   }
 
-  // DBHelper.internal();
+  initDb() async {
+    String databasesPath = await getDatabasesPath();
+    String path = join(databasesPath, 'notes.db');
 
-  Future<Database> initDb() async {
-    io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "main.db");
-    var _ourDb = await openDatabase(path, version: 1, onCreate: _onCreate);
-    return _ourDb;
+    await deleteDatabase(path); // just for testing
+ 
+    var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    return db;
   }
-
-  Future<Task> fetchTasks() async {
-    var dbHelper = DBHelper();
-    List<Task> tasks = await dbHelper.getTask();
-    tasks.forEach((task) {
-      if(task.progress == 100){
-        completed.add(task);
-      }else{
-        inProgress.add(task);
-      }
-    });
-  }
-
-  void _onCreate(Database db, int version) async {
-      db.execute("CREATE TABLE Task(id INTEGER PRIMARY KEY, title TEXT, notes TEXT, createdAt TEXT, dueDate TEXT, progress INTEGER)");
+  
+  _onCreate(Database db, int newVersion) async {
+      await db.execute("CREATE TABLE $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate TEXT, $columnDueDate TEXT, $columnProgress INTEGER)");
       print("created tables");
   }
 
-  void saveTask(Task task) async{
+  Future<int> saveTask(Task task) async{
       var dbClient = await db;
-      await dbClient.transaction((txn) async {
-      return await txn.rawInsert(
-        'INSERT INTO Task(title, notes, createdAt, dueDate, progress) VALUES(' +
-              '\'' +
-              task.title +
-              '\'' +
-              ',' +
-              '\'' +
-              task.notes +
-              '\'' +
-              ',' +
-              '\'' +
-              task.createdAt.toIso8601String() +
-              '\'' +
-              ',' +
-              '\'' +
-              task.dueDate.toIso8601String() +
-              '\'' +
-              ',' +
-              '\'' +
-              task.progress.toString() +
-              '\'' +
-              ')');
-      });
+      var result = await dbClient.insert(taskTable, task.toMap());
+      // await dbClient.transaction((txn) async {
+      // return await txn.rawInsert(
+      //   'INSERT INTO Task(title, notes, createdAt, dueDate, progress) VALUES(' +
+      //         '\'' +
+      //         task["title"] +
+      //         '\'' +
+      //         ',' +
+      //         '\'' +
+      //         task["notes"] +
+      //         '\'' +
+      //         ',' +
+      //         '\'' +
+      //         task["start"].toIso8601String() +
+      //         '\'' +
+      //         ',' +
+      //         '\'' +
+      //         task["dueDate"].toIso8601String() +
+      //         '\'' +
+      //         ',' +
+      //         '\'' +
+      //         task["progress"].toString() +
+      //         '\'' +
+      //         ')');
+      // });
+      return result;
+      
     }
 
   Future<List<Task>> getTask() async{
@@ -84,5 +89,21 @@ class DBHelper{
       }
       print(tasks.length);
       return tasks;
+  }
+  Future<Task> fetchTasks() async {
+    var dbHelper = DataBaseHelper();
+    List<Task> tasks = await dbHelper.getTask();
+    tasks.forEach((task) {
+      if(task.progress == 100){
+        completed.add(task);
+      }else{
+        inProgress.add(task);
+      }
+    });
+  }
+
+  Future close() async{
+    var dbClient = await db;
+    return dbClient.close();
   }
 }
