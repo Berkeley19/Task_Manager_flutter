@@ -80,26 +80,29 @@ class DataBaseHelper{
       
     }
 
-  Future<List<Task>> getTask() async{
-      var dbClient = await db;
-      List<Map> list = await dbClient.rawQuery('SELECT * FROM Task');
-      List<Task> tasks = new List();
-      for(int i=0; i<list.length; i++){
-        tasks.add(new Task(list[i]["title"], list[i]["notes"], list[i]["createdAt"], list[i]["dueDate"], list[i]["progress"]));
-      }
-      print(tasks.length);
-      return tasks;
+  Future<List> getAllTasks()async {
+    var dbClient = await db;
+    var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
+    return result.toList();
   }
-  Future<Task> fetchTasks() async {
-    var dbHelper = DataBaseHelper();
-    List<Task> tasks = await dbHelper.getTask();
-    tasks.forEach((task) {
-      if(task.progress == 100){
-        completed.add(task);
-      }else{
-        inProgress.add(task);
+
+  Future<Task> getTask(int id) async{
+      var dbClient = await db;
+       List<Map> result = await dbClient.query(taskTable,
+        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress],
+        where: '$columnId = ?',
+        whereArgs: [id]);
+      print(result.length);
+      if(result.length > 0){
+      return new Task.fromMap(result.first);
       }
-    });
+
+      return null;
+  }
+  Future<int> deleteTask(int id) async {
+    var dbClient = await db;
+    return await dbClient.delete(taskTable, where: '$columnId = ?', whereArgs: [id]);
+//    return await dbClient.rawDelete('DELETE FROM $tableNote WHERE $columnId = $id');
   }
 
   Future close() async{
