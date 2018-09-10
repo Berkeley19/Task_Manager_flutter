@@ -105,6 +105,11 @@ class DataBaseHelper{
 //    return await dbClient.rawDelete('DELETE FROM $tableNote WHERE $columnId = $id');
   }
 
+  Future<int> updateTask(Task task) async{
+    var dbClient = await db;
+    return await dbClient.update(taskTable, task.toMap(), where: "$columnId = ?", whereArgs: [task.id]);
+  }
+
   Future close() async{
     var dbClient = await db;
     return dbClient.close();
