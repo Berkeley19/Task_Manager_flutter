@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class Task{
   String _title;
   String _notes;
-  DateTime _startDate;
-  DateTime _dueDate;
+  int _startDate;
+  int _dueDate;
   int _progress;
   int _id;
   Task(
@@ -13,6 +13,7 @@ class Task{
     this._startDate, 
     this._dueDate,
     this._progress,
+
   );
 
   Task.map(dynamic obj){
@@ -26,8 +27,8 @@ class Task{
 
   String get title => _title;
   String get notes => _notes;
-  DateTime get dueDate => _dueDate;
-  DateTime get startDate => _startDate;
+  int get dueDate => _dueDate;
+  int get startDate => _startDate;
   int get progress => _progress;
   int get id => _id;
 

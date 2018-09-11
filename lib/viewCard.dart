@@ -9,8 +9,9 @@ enum DatePicker {
 }
 
 class ViewCard extends StatefulWidget{
-  final DataBaseHelper dataManager;
-  ViewCard({this.dataManager});
+  final Task task;
+  ViewCard({this.task});
+ 
   static var routeName = '/viewCardRoute';
   @override
   ViewCardState createState() => new ViewCardState();
@@ -18,14 +19,21 @@ class ViewCard extends StatefulWidget{
 }
 
 class ViewCardState extends State<ViewCard>{
-  Task task = new Task(null, null,  null,  null, 0);
 
+  DataBaseHelper viewManager = new DataBaseHelper();
   String title;
   String notes;
-  DateTime startDate = DateTime.now();
-  DateTime dueDate = DateTime.now();
-  int progress = 0;
+  DateTime startDate;
+  DateTime dueDate;
+  int progress;
 
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+  
   final formKey = new GlobalKey<FormState>();
 
 void changeProgress(double value){
@@ -60,6 +68,8 @@ Widget _datePicker(DatePicker date){
   )
   );
 }
+
+
 
  @override
   Widget build(BuildContext context) {
@@ -109,11 +119,25 @@ Widget _datePicker(DatePicker date){
                   onPressed: () async {
                     if(formKey.currentState.validate()){
                       formKey.currentState.save();
-                      Map<String, dynamic> employee = Task(title,notes,this.startDate,this.dueDate,progress).toMap();
-                      print(employee);
-                      await widget.dataManager.saveTask(employee);
-                      print('added');
-                      Navigator.of(context).pop(true);
+                      if(widget.task.id != null){
+                      viewManager.updateTask(Task.fromMap({
+                          'id': widget.task.id,
+                          'title': widget.task.title,
+                          'notes': widget.task.title,
+                          'startDate': widget.task.startDate,
+                          'dueDate': widget.task.dueDate,
+                          'progress': widget.task.progress,
+                      })).then((_){
+                        Navigator.pop(context, 'update');
+                      });
+                      }
+                      else{
+                        viewManager.saveTask(Task(this.title, this.notes, this.startDate.millisecondsSinceEpoch, this.dueDate.millisecondsSinceEpoch, this.progress)).then((_){
+                          Navigator.pop(context, 'save');
+                        
+                          
+                        });
+                      }
                     }
                 },  
                 child: new Text('Create Task'),),)

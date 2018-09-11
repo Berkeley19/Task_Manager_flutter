@@ -36,7 +36,7 @@ class DataBaseHelper{
 
   initDb() async {
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'notes.db');
+    String path = join(databasesPath, 'tasks.db');
 
     await deleteDatabase(path); // just for testing
  
@@ -45,37 +45,13 @@ class DataBaseHelper{
   }
   
   _onCreate(Database db, int newVersion) async {
-      await db.execute("CREATE TABLE $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate TEXT, $columnDueDate TEXT, $columnProgress INTEGER)");
+      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER)");
       print("created tables");
   }
 
   Future<int> saveTask(Task task) async{
       var dbClient = await db;
       var result = await dbClient.insert(taskTable, task.toMap());
-      // await dbClient.transaction((txn) async {
-      // return await txn.rawInsert(
-      //   'INSERT INTO Task(title, notes, createdAt, dueDate, progress) VALUES(' +
-      //         '\'' +
-      //         task["title"] +
-      //         '\'' +
-      //         ',' +
-      //         '\'' +
-      //         task["notes"] +
-      //         '\'' +
-      //         ',' +
-      //         '\'' +
-      //         task["start"].toIso8601String() +
-      //         '\'' +
-      //         ',' +
-      //         '\'' +
-      //         task["dueDate"].toIso8601String() +
-      //         '\'' +
-      //         ',' +
-      //         '\'' +
-      //         task["progress"].toString() +
-      //         '\'' +
-      //         ')');
-      // });
       return result;
       
     }

@@ -10,29 +10,35 @@ class HomePage extends StatefulWidget{
 }
 
 class HomePageState extends State<HomePage>{
-    
-  DataBaseHelper manager;
-  final scaffoldKey = new GlobalKey<HomePageState>();
+  List<Task> taskItem = new List();
+  DataBaseHelper manager = new DataBaseHelper();
+
+
+  @override
+  void initState(){
+    super.initState();
+
+    manager.getAllTasks().then((tasks) {
+      setState(() {
+              tasks.forEach((task) {
+                taskItem.add(Task.fromMap(task));
+              });
+            });
+    });
+  }
   
   @override
   Widget build(BuildContext context){
     this.manager = new DataBaseHelper();
     return new Scaffold(
-      key: scaffoldKey,
       appBar: new AppBar(),
       body: mainList(),
       floatingActionButton: RaisedButton(
         child: Text("Create Task"),
         color: Colors.cyan,
         onPressed: ()async {
-          var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(dataManager: this.manager,));
-          var result = await Navigator.push(context, route);
-          if(result){
-            setState(() async  {
-              await this.manager.getTask();
-              // scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Processing Data'), duration: Duration(seconds: 2)));
-             });
-          }
+          await Navigator.push(context, MaterialPageRoute(builder: (context) => ViewCard()),);
+          
         }
       ),
     );
@@ -60,8 +66,8 @@ class HomePageState extends State<HomePage>{
   Widget taskCell(Task task) {
     return new GestureDetector(
       onTap: (){
-        // to new page
-        var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(dataManager: this.manager,));
+        // to new p
+        var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(task: task,));
         Navigator.of(context).push(route);
       },
       child: Padding(
@@ -81,7 +87,8 @@ class HomePageState extends State<HomePage>{
                     ),
                     new Expanded(
                         child: progressStack(
-                          task.progress, ProgressType.DueDate, startDate: task.startDate, dueTime: task.dueDate)
+                          task.progress, ProgressType.DueDate, startDate: DateTime.fromMicrosecondsSinceEpoch(task.startDate),
+                          dueTime: DateTime.fromMicrosecondsSinceEpoch(task.dueDate)),
                     ),
                     new Expanded(
                         child: progressStack(task.progress, ProgressType.Progress)

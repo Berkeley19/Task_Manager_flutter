@@ -7,9 +7,6 @@ void main(){
     title: 'Task Application',
     theme: ThemeData.dark(),
     home: new HomePage(),
-    routes: <String, WidgetBuilder>{
-      ViewCard.routeName: (BuildContext context) => ViewCard()
-    }
     
   ));
 }
