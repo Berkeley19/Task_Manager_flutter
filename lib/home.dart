@@ -11,37 +11,40 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
   List<Task> taskItem = new List();
-  DataBaseHelper manager = new DataBaseHelper();
-
+  DataBaseHelper manager;
 
   @override
   void initState(){
     super.initState();
-
-    manager.getAllTasks().then((tasks) {
-      setState(() {
-              tasks.forEach((task) {
-                taskItem.add(Task.fromMap(task));
-              });
-            });
-    });
   }
   
   @override
   Widget build(BuildContext context){
-    this.manager = new DataBaseHelper();
-    return new Scaffold(
-      appBar: new AppBar(),
-      body: mainList(),
-      floatingActionButton: RaisedButton(
-        child: Text("Create Task"),
-        color: Colors.cyan,
-        onPressed: ()async {
-          await Navigator.push(context, MaterialPageRoute(builder: (context) => ViewCard()),);
-          
-        }
-      ),
-    );
+    this.manager = DataBaseHelper();
+    return new FutureBuilder(
+          future: this.manager.getAllTasks(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!=null) {
+                return new Scaffold( 
+                  appBar: new AppBar(), 
+                  body: mainList(), 
+                  floatingActionButton: RaisedButton( 
+                    child: Text("Create Task"), 
+                    color: Colors.cyan, 
+                    onPressed: ()async { 
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => ViewCard()),);
+                    } 
+                  ), 
+                );
+              } else {
+                return new CircularProgressIndicator();
+              }
+            }else{
+              return new Container(width: 0.0, height: 0.0); 
+            }
+          }
+        );
   }
 
   List<Widget> taskBuilder(String title, ProgressState state) {
@@ -65,10 +68,14 @@ class HomePageState extends State<HomePage>{
 
   Widget taskCell(Task task) {
     return new GestureDetector(
-      onTap: (){
-        // to new p
+      onTap: ()async {
         var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(task: task,));
-        Navigator.of(context).push(route);
+        var result = await Navigator.of(context).push(route);
+        if(result){
+          setState(() async {
+            await this.manager.getAllTasks();
+          });
+        }
       },
       child: Padding(
         padding: new EdgeInsets.all(6.0), 
@@ -87,8 +94,8 @@ class HomePageState extends State<HomePage>{
                     ),
                     new Expanded(
                         child: progressStack(
-                          task.progress, ProgressType.DueDate, startDate: DateTime.fromMicrosecondsSinceEpoch(task.startDate),
-                          dueTime: DateTime.fromMicrosecondsSinceEpoch(task.dueDate)),
+                          task.progress, ProgressType.DueDate, startDate: task.startDate,
+                          dueTime: task.dueDate),
                     ),
                     new Expanded(
                         child: progressStack(task.progress, ProgressType.Progress)
@@ -102,15 +109,15 @@ class HomePageState extends State<HomePage>{
     );
   }
 
-  Widget progressStack(int progress, ProgressType type, {DateTime startDate, DateTime dueTime}) {
+  Widget progressStack(int progress, ProgressType type, {int startDate, int dueTime}) {
     int globalProgress;
     double textProgress;
     switch(type){
       case ProgressType.DueDate:
         var dateNow = DateTime.now();
-        Duration dateDiff1 = dueTime.difference(startDate);
-        Duration dateDiff2 = dateNow.difference(startDate);
-        textProgress = dateDiff2.inDays / dateDiff1.inDays;
+        int dateDiff1 = dueTime - startDate;
+        int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
+        textProgress = dateDiff2 / dateDiff1;
         globalProgress = (textProgress * 100).toInt();
         break;
       case ProgressType.Progress:

@@ -13,14 +13,14 @@ class Task{
     this._startDate, 
     this._dueDate,
     this._progress,
-
+    [this._id]
   );
 
   Task.map(dynamic obj){
     this._title = obj['title'];
     this._notes = obj['notes'];
-    this._startDate = obj['start date'];
-    this._dueDate = obj['due date'];
+    this._startDate = obj['start_Date'];
+    this._dueDate = obj['dueate'];
     this._progress = obj['progress'];
     this._id = obj['id'];
   }
@@ -36,14 +36,13 @@ class Task{
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     if (_id != null) {
-      map['id'] = id;
+      map['id'] = _id;
     }
     map['title'] = _title;
     map['notes'] = _notes;
-    map['start date'] = _startDate;
-    map['due date'] = _dueDate;
+    map['start_Date'] = _startDate;
+    map['due_Date'] = _dueDate;
     map['progress'] = _progress;
-    map['id'] = _id;
 
     return map;
   }
@@ -51,8 +50,8 @@ class Task{
   Task.fromMap(Map<String, dynamic> map){
     this._title = map['title'];
     this._notes = map['notes'];
-    this._startDate = map['start date'];
-    this._dueDate = map['due Date'];
+    this._startDate = map['start_Date'];
+    this._dueDate = map['due_Date'];
     this._progress = map['progress'];
     this._id = map['id'];
 

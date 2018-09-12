@@ -14,8 +14,8 @@ class DataBaseHelper{
   final String columnId = 'id';
   final String columnTitle = 'title';
   final String columnNotes = 'notes';
-  final String columnDueDate = 'due date';
-  final String columnStartDate = 'start date';
+  final String columnDueDate = 'due_Date';
+  final String columnStartDate = 'start_Date';
   final String columnProgress = 'progress';
 
 
@@ -38,7 +38,7 @@ class DataBaseHelper{
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'tasks.db');
 
-    await deleteDatabase(path); // just for testing
+    // await deleteDatabase(path); // just for testing
  
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
@@ -51,15 +51,26 @@ class DataBaseHelper{
 
   Future<int> saveTask(Task task) async{
       var dbClient = await db;
+      print('savetaskb4');
       var result = await dbClient.insert(taskTable, task.toMap());
+      print('savetask');
       return result;
-      
     }
 
-  Future<List> getAllTasks()async {
+  Future<bool> getAllTasks() async {
     var dbClient = await db;
     var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
-    return result.toList();
+    completed.clear();
+    inProgress.clear();
+    result.forEach((task){
+      if(task[columnProgress] == 100){
+        completed.add(Task.fromMap(task));
+      }else{
+        inProgress.add(Task.fromMap(task));
+      }
+    });
+    return true;
+
   }
 
   Future<Task> getTask(int id) async{
