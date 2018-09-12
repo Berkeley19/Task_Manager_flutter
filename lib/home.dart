@@ -71,12 +71,12 @@ class HomePageState extends State<HomePage>{
       onTap: ()async {
         var route = new MaterialPageRoute(builder:(BuildContext context) => new ViewCard(task: task,));
         var result = await Navigator.of(context).push(route);
-        if(result){
-          setState(() async {
-            await this.manager.getAllTasks();
-          });
+        if(result == null){
+          return;
         }
-      },
+        if(result){
+          this.manager.getAllTasks();
+        }},
       child: Padding(
         padding: new EdgeInsets.all(6.0), 
           child: Card(

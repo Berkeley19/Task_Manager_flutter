@@ -42,11 +42,34 @@ void changeProgress(double value){
 }
 
 Widget _datePicker(DatePicker date){
+  DateTime initialValue;
+  switch(date){
+    case DatePicker.StartDate: 
+      if(widget.task != null){
+        print('${widget.task.startDate} start');
+        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
+        print(initialValue);
+      }else{
+        initialValue = DateTime.now();
+        print('startdate null');
+      }
+      break;
+    case DatePicker.DueDate:
+      if(widget.task != null){
+        print('${widget.task.dueDate} due');
+        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
+        print(initialValue);
+      }else{
+        initialValue = DateTime.now();
+        print('duedate null');
+      }
+      break;
+  }
   return new GestureDetector(
     onTap: (){
       showDatePicker(
         context: context,
-        initialDate: new DateTime.now(),
+        initialDate: initialValue,
         firstDate: new DateTime(1971),
         lastDate: new DateTime(2120),
       ).then((DateTime value) {
@@ -60,7 +83,7 @@ Widget _datePicker(DatePicker date){
     },
     child: ListTile(
       leading: date == DatePicker.StartDate ? new Text('Start date'): new Text('Due Date'),
-      title: date == DatePicker.StartDate ? new Text(new DateFormat('MMM, dd yyyy').format(this.startDate)): new Text(new DateFormat('MMM, dd yyyy').format(this.dueDate),
+      title: new Text(new DateFormat('MMM, dd yyyy').format(initialValue),
     )
   )
   );
@@ -73,6 +96,7 @@ void onPressedSnackBar(String text, scaffoldKey){
 
  @override
   Widget build(BuildContext context) {
+  
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
@@ -87,6 +111,7 @@ void onPressedSnackBar(String text, scaffoldKey){
               new TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: new InputDecoration(labelText: 'Title'),
+                initialValue: widget.task != null ? widget.task.title : '',
                 onSaved: (val){
                   this.title = val;
                 },
@@ -141,13 +166,13 @@ void onPressedSnackBar(String text, scaffoldKey){
                       if(widget.task != null){
                         viewManager.updateTask(Task.fromMap({
                             'id': widget.task.id,
-                            'title': widget.task.title,
-                            'notes': widget.task.title,
-                            'start_Date': widget.task.startDate,
-                            'due_Date': widget.task.dueDate,
-                            'progress': widget.task.progress,
+                            'title': this.title,
+                            'notes': this.notes,
+                            'start_Date': this.startDate,
+                            'due_Date': this.dueDate,
+                            'progress': this.progress,
                         })).then((_){
-                          Navigator.pop(context, 'update');
+                          Navigator.pop(context, true);
                         });
                       }
                       else{
@@ -163,7 +188,7 @@ void onPressedSnackBar(String text, scaffoldKey){
                       }
                     }
                 },  
-                child: new Text('Create Task'),),)
+                child: widget.task != null ? Text('Update'): Text('Create Task'),),)
             ],
           ),
         ),
