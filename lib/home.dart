@@ -27,7 +27,7 @@ class HomePageState extends State<HomePage>{
             if (snapshot.hasData) {
               if (snapshot.data!=null) {
                 return new Scaffold( 
-                  appBar: new AppBar(), 
+                  appBar: new AppBar(title:new Text('Task App'), elevation: 5.0), 
                   body: mainList(), 
                   floatingActionButton: RaisedButton( 
                     child: Text("Create Task"), 

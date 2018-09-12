@@ -66,7 +66,10 @@ Widget _datePicker(DatePicker date){
   );
 }
 
-
+void onPressedSnackBar(String text, scaffoldKey){
+    var snack = new SnackBar(content: Text(text));
+    scaffoldKey.currentState.showSnackBar(snack);
+}
 
  @override
   Widget build(BuildContext context) {
@@ -122,18 +125,15 @@ Widget _datePicker(DatePicker date){
                 child: new RaisedButton(
                   onPressed: () async {
                     if(this.startDate.millisecondsSinceEpoch == this.dueDate.millisecondsSinceEpoch){
-                      var snack = new SnackBar(content: Text('Due date and start date must be different'));
-                      _scaffoldKey.currentState.showSnackBar(snack);
+                      onPressedSnackBar('Due date and start date must be different.', _scaffoldKey);
                       return;
                     }
                     if(this.dueDate.millisecondsSinceEpoch - this.startDate.millisecondsSinceEpoch < 0){
-                      var snack = new SnackBar(content: Text('Due date cannot be before the start date'));
-                      _scaffoldKey.currentState.showSnackBar(snack);
+                      onPressedSnackBar('Due date cannot be before start date.', _scaffoldKey);
                       return;
                     }
                     if(this.dueDate.millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch < 0){
-                      var snack = new SnackBar(content: Text('Due date must before after today'));
-                      _scaffoldKey.currentState.showSnackBar(snack);
+                      onPressedSnackBar('Due date must be after today', _scaffoldKey);
                       return;
                     }
                     if(formKey.currentState.validate()){
