@@ -41,28 +41,23 @@ void changeProgress(double value){
     });
 }
 
+DateTime pickerInitialValue(int timeStamp){
+  if(widget.task != null){
+        print('${widget.task.startDate} start');
+        return DateTime.fromMillisecondsSinceEpoch(timeStamp);
+      }else{
+        return DateTime.now();
+      }
+}
+
 Widget _datePicker(DatePicker date){
   DateTime initialValue;
   switch(date){
     case DatePicker.StartDate: 
-      if(widget.task != null){
-        print('${widget.task.startDate} start');
-        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
-        print(initialValue);
-      }else{
-        initialValue = DateTime.now();
-        print('startdate null');
-      }
+      initialValue = pickerInitialValue(widget.task.startDate);
       break;
     case DatePicker.DueDate:
-      if(widget.task != null){
-        print('${widget.task.dueDate} due');
-        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
-        print(initialValue);
-      }else{
-        initialValue = DateTime.now();
-        print('duedate null');
-      }
+      initialValue = pickerInitialValue(widget.task.dueDate);
       break;
   }
   return new GestureDetector(
