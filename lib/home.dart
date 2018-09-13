@@ -47,20 +47,24 @@ class HomePageState extends State<HomePage>{
         );
   }
 
+  void forEachTaskAddToCell(List<Widget> taskCellsFunction, List<Task> taskType){
+      taskType.forEach((task){
+        return taskCellsFunction.add(taskCell(task));
+      });
+  }
+
+  
+
   List<Widget> taskBuilder(String title, ProgressState state) {
     List<Widget> taskCells = [];
 
     taskCells.add(ListTile(title: new Text(title)));
     switch(state){
       case ProgressState.Completed: 
-        this.manager.completed.forEach((task) {
-        taskCells.add(taskCell(task));
-      });
+        forEachTaskAddToCell(taskCells, this.manager.completed);
       break;
       case ProgressState.InProgress: 
-        this.manager.inProgress.forEach((task) {
-        taskCells.add(taskCell(task));
-      });
+        forEachTaskAddToCell(taskCells, this.manager.inProgress);
       break;
     }
     return taskCells;

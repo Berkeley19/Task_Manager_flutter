@@ -43,7 +43,6 @@ void changeProgress(double value){
 
 DateTime pickerInitialValue(int timeStamp){
   if(widget.task != null){
-        print('${widget.task.startDate} start');
         return DateTime.fromMillisecondsSinceEpoch(timeStamp);
       }else{
         return DateTime.now();
