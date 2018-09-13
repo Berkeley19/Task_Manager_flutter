@@ -21,6 +21,7 @@ class DataBaseHelper{
 
   List<Task> completed = [];
   List<Task> inProgress = [];
+  List<Task> overDue = [];
 
   static Database _db;
 
@@ -62,10 +63,15 @@ class DataBaseHelper{
     var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
     completed.clear();
     inProgress.clear();
+    overDue.clear();
     result.forEach((task){
       if(task[columnProgress] == 100){
         completed.add(Task.fromMap(task));
-      }else{
+      }else if(task[columnDueDate] < DateTime.now().millisecondsSinceEpoch){
+        print('overdue added');
+        overDue.add(Task.fromMap(task));
+      }
+      else{
         inProgress.add(Task.fromMap(task));
       }
     });
@@ -89,7 +95,6 @@ class DataBaseHelper{
   Future<int> deleteTask(int id) async {
     var dbClient = await db;
     return await dbClient.delete(taskTable, where: '$columnId = ?', whereArgs: [id]);
-//    return await dbClient.rawDelete('DELETE FROM $tableNote WHERE $columnId = $id');
   }
 
   Future<int> updateTask(Task task) async{

@@ -41,23 +41,25 @@ void changeProgress(double value){
     });
 }
 
-DateTime pickerInitialValue(int timeStamp){
-  if(widget.task != null){
-        return DateTime.fromMillisecondsSinceEpoch(timeStamp);
-      }else{
-        return DateTime.now();
-      }
-}
 
 Widget _datePicker(DatePicker date){
   DateTime initialValue;
   switch(date){
     case DatePicker.StartDate: 
-      initialValue = pickerInitialValue(widget.task.startDate);
+      if(widget.task != null){
+        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
+      }
+      else{
+        initialValue = DateTime.now();
+      }
       break;
     case DatePicker.DueDate:
-      initialValue = pickerInitialValue(widget.task.dueDate);
-      break;
+      if(widget.task !=null){
+        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);  
+      }else{
+        initialValue = DateTime.now();
+      }
+      
   }
   return new GestureDetector(
     onTap: (){
@@ -77,9 +79,8 @@ Widget _datePicker(DatePicker date){
     },
     child: ListTile(
       leading: date == DatePicker.StartDate ? new Text('Start date'): new Text('Due Date'),
-      title: new Text(new DateFormat('MMM, dd yyyy').format(initialValue),
+      title: date == DatePicker.StartDate ? Text(new DateFormat('MMM, dd yyyy').format(this.startDate)) : Text(new DateFormat('MMM, dd yyyy').format(this.dueDate)),
     )
-  )
   );
 }
 
@@ -95,6 +96,15 @@ void onPressedSnackBar(String text, scaffoldKey){
       key: _scaffoldKey,
       appBar: new AppBar(
         title: new Text('New Task'),
+        actions: widget.task != null ? <Widget>[ 
+          IconButton(
+            icon: new Icon(Icons.delete),
+            onPressed: () async{
+               await this.viewManager.deleteTask(widget.task.id);
+               Navigator.pop(context, true);
+            }
+          )
+        ] :  <Widget>[],
       ),
       body: new Padding(
         padding: const EdgeInsets.all(16.0),

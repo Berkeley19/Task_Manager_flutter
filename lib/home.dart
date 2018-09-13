@@ -66,6 +66,8 @@ class HomePageState extends State<HomePage>{
       case ProgressState.InProgress: 
         forEachTaskAddToCell(taskCells, this.manager.inProgress);
       break;
+      case ProgressState.OverDue:
+        forEachTaskAddToCell(taskCells, this.manager.overDue);
     }
     return taskCells;
   }
@@ -123,6 +125,9 @@ class HomePageState extends State<HomePage>{
         int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
         textProgress = dateDiff2 / dateDiff1;
         globalProgress = (textProgress * 100).toInt();
+        if(globalProgress > 100){
+          globalProgress = 100;
+        }
         break;
       case ProgressType.Progress:
         globalProgress = progress;
@@ -151,6 +156,7 @@ class HomePageState extends State<HomePage>{
         new Column(
             children: taskBuilder("Complete", ProgressState.Completed),
         ),
+        new Column(children: taskBuilder("Overdue", ProgressState.OverDue))
         ],
         );
       }
@@ -161,5 +167,5 @@ enum ProgressType {
 }
 
 enum ProgressState {
-  Completed, InProgress
+  Completed, InProgress, OverDue
 }
