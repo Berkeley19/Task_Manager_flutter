@@ -89,6 +89,33 @@ void onPressedSnackBar(String text, scaffoldKey){
     scaffoldKey.currentState.showSnackBar(snack);
 }
 
+void deleteDialog() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return new AlertDialog(
+        title: new Text('Deleting?'), 
+        content: new Text('Are you sure you with to continue?'),
+        actions: <Widget>[
+          new FlatButton(
+            child: const Text('Delete'),
+            onPressed: () async {
+              await this.viewManager.deleteTask(widget.task.id);
+              Navigator.of(context).pop();
+              Navigator.pop(context, true);
+            },
+          ),
+          new FlatButton(
+            child: const Text('cancel'),
+            onPressed: (){
+              Navigator.of(context).pop();
+            }
+          )
+        ],);
+    }
+  );
+}
+
  @override
   Widget build(BuildContext context) {
   
@@ -99,9 +126,8 @@ void onPressedSnackBar(String text, scaffoldKey){
         actions: widget.task != null ? <Widget>[ 
           IconButton(
             icon: new Icon(Icons.delete),
-            onPressed: () async{
-               await this.viewManager.deleteTask(widget.task.id);
-               Navigator.pop(context, true);
+            onPressed: () {
+               deleteDialog();
             }
           )
         ] :  <Widget>[],
