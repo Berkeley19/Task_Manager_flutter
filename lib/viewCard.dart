@@ -51,25 +51,6 @@ class ViewCardState extends State<ViewCard> {
   }
 
   Widget _datePicker(DatePicker date) {
-    // DateTime initialValue;
-    // switch(date){
-    //   case DatePicker.StartDate:
-    //       if(widget.task != null){
-    //         initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
-    //         print('it should work start');
-    //       }else{
-    //         initialValue = DateTime.now();
-    //       }
-    //       break;
-    //   case DatePicker.DueDate:
-    //       if(widget.task != null){
-    //         initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
-    //         print('it shoudl work due');
-    //       }else{
-    //         initialValue = DateTime.now();
-    //       }
-    //       break;
-    // }
     return new GestureDetector(
         onTap: () {
           showDatePicker(
@@ -195,8 +176,19 @@ class ViewCardState extends State<ViewCard> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: new RaisedButton(
                   onPressed: () async {
-                    validationSnackBar(this.startDate.millisecondsSinceEpoch, this.dueDate.millisecondsSinceEpoch);
-                    if (formKey.currentState.validate()) {
+                    if (this.startDate.millisecondsSinceEpoch == this.dueDate.millisecondsSinceEpoch) {
+                    onPressedSnackBar('Due date and start date must be different.', _scaffoldKey);
+                    return;
+                    }
+                    else if (this.dueDate.millisecondsSinceEpoch - this.startDate.millisecondsSinceEpoch < 0) {
+                      onPressedSnackBar('Due date cannot be before start date.', _scaffoldKey);
+                      return;
+                    }
+                    else if (this.dueDate.millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch < 0) {
+                      onPressedSnackBar('Due date must be after today', _scaffoldKey);
+                      return;
+                    }
+                    else if (formKey.currentState.validate()) {
                       formKey.currentState.save();
                       if (widget.task != null) {
                         viewManager
@@ -236,20 +228,5 @@ class ViewCardState extends State<ViewCard> {
         ),
       ),
     );
-  }
-
-  void validationSnackBar(int startDate, int dueDate) {
-    if (startDate == dueDate) {
-      onPressedSnackBar('Due date and start date must be different.', _scaffoldKey);
-      return;
-    }
-    if (dueDate - startDate < 0) {
-      onPressedSnackBar('Due date cannot be before start date.', _scaffoldKey);
-      return;
-    }
-    if (dueDate - DateTime.now().millisecondsSinceEpoch < 0) {
-      onPressedSnackBar('Due date must be after today', _scaffoldKey);
-      return;
-    }
   }
 }

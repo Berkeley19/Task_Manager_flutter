@@ -151,12 +151,14 @@ class HomePageState extends State<HomePage>{
       padding: const EdgeInsets.all(15.0),
       children: <Widget>[
         new Column(
-          children: taskBuilder("In Progress", ProgressState.InProgress),
+          children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [],
         ),
         new Column(
-            children: taskBuilder("Complete", ProgressState.Completed),
+            children: this.manager.completed.isEmpty == false ? taskBuilder("Complete", ProgressState.Completed) : <Widget> [],
         ),
-        new Column(children: taskBuilder("Overdue", ProgressState.OverDue))
+        new Column(
+          children: this.manager.overDue.isEmpty == false ? taskBuilder("Overdue", ProgressState.OverDue) : <Widget> [],
+        ),
         ],
         );
       }
