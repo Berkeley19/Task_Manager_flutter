@@ -137,6 +137,7 @@ void deleteDialog() {
         child: new Form(
           key: formKey,
           child: new Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               new TextFormField(
                 keyboardType: TextInputType.text,
@@ -154,6 +155,7 @@ void deleteDialog() {
               new TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: new InputDecoration(labelText: 'Notes'),
+                initialValue: widget.task != null ? widget.task.notes : '',
                  onSaved: (val){
                   this.notes = val;
                 },
@@ -167,9 +169,9 @@ void deleteDialog() {
                     new Slider(
                     min: 0.0,
                     max: 100.0,
-                    value: this.progress.toDouble(),
+                    value: widget.task != null ? widget.task.progress.toDouble() : this.progress.toDouble(),
                     activeColor: this.progress == 100 ? Colors.green : Colors.deepOrange,
-                    onChanged: (double value){changeProgress(value);}
+                    onChanged: (double value){changeProgress(value);},
                   )
                   ],
                 )

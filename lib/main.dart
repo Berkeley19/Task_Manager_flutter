@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_app_tasks/viewCard.dart';
 import 'package:project_app_tasks/home.dart';
 
 void main(){
@@ -7,7 +6,6 @@ void main(){
     title: 'Task Application',
     theme: ThemeData.dark(),
     home: new HomePage(),
-    
   ));
 }
 
