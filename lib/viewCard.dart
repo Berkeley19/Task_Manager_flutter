@@ -48,6 +48,7 @@ Widget _datePicker(DatePicker date){
     case DatePicker.StartDate: 
         if(widget.task != null){
           initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
+          print('it should work start');
         }else{
           initialValue = DateTime.now();
         }
@@ -55,9 +56,11 @@ Widget _datePicker(DatePicker date){
     case DatePicker.DueDate:
         if(widget.task != null){
           initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
+          print('it shoudl work due');
         }else{
           initialValue = DateTime.now();
         }  
+        break;
   }
   return new GestureDetector(
     onTap: (){
@@ -77,7 +80,7 @@ Widget _datePicker(DatePicker date){
     },
     child: ListTile(
       leading: date == DatePicker.StartDate ? new Text('Start date'): new Text('Due Date'),
-      title: date == DatePicker.StartDate ? Text(new DateFormat('MMM, dd yyyy').format(initialValue)) : Text(new DateFormat('MMM, dd yyyy').format(initialValue)),
+      title: Text(widget.task != null ? DateFormat('MMM, dd yyyy').format(initialValue): date == DatePicker.StartDate ? DateFormat('MMM, dd yyyy').format(this.startDate) : DateFormat('MMM, dd yyyy').format(this.dueDate)),
     )
   );
 }
@@ -93,7 +96,7 @@ void deleteDialog() {
     builder: (BuildContext context) {
       return new AlertDialog(
         title: new Text('Deleting?'), 
-        content: new Text('Are you sure you with to continue?'),
+        content: new Text('Are you sure you want to continue?'),
         actions: <Widget>[
           new FlatButton(
             child: const Text('Delete'),
@@ -163,8 +166,8 @@ void deleteDialog() {
               new Container(
                 child: Column(
                   children: <Widget>[
-                    
-                    new Text('Progress percentage at ${this.progress}%'),
+            
+                    new Text(widget.task != null ? 'Progress percentage at ${widget.task.progress}%': 'Progress percentage at ${this.progress}%'),
                     new Slider(
                     min: 0.0,
                     max: 100.0,
@@ -180,7 +183,20 @@ void deleteDialog() {
                 padding: const EdgeInsets.symmetric(vertical: 16.0), 
                 child: new RaisedButton(
                   onPressed: () async {
-                    if(this.startDate.millisecondsSinceEpoch == this.dueDate.millisecondsSinceEpoch){
+                    if(widget.task != null){
+
+                      if(widget.task.startDate == widget.task.dueDate){
+                      onPressedSnackBar('Due date and start date must be different.', _scaffoldKey);
+                      return;
+                     }if(widget.task.dueDate - widget.task.startDate < 0){
+                      onPressedSnackBar('Due date cannot be before start date.', _scaffoldKey);
+                      return;
+                    }if(widget.task.dueDate - DateTime.now().millisecondsSinceEpoch < 0){
+                      onPressedSnackBar('Due date must be after today', _scaffoldKey);
+                      return;
+                    }
+                    }else{
+                      if(this.startDate.millisecondsSinceEpoch == this.dueDate.millisecondsSinceEpoch){
                       onPressedSnackBar('Due date and start date must be different.', _scaffoldKey);
                       return;
                     }
@@ -191,7 +207,7 @@ void deleteDialog() {
                     if(this.dueDate.millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch < 0){
                       onPressedSnackBar('Due date must be after today', _scaffoldKey);
                       return;
-                    }
+                    }}
                     if(formKey.currentState.validate()){
                       formKey.currentState.save();
                       if(widget.task != null){
@@ -199,8 +215,8 @@ void deleteDialog() {
                             'id': widget.task.id,
                             'title': this.title,
                             'notes': this.notes,
-                            'start_Date': this.startDate,
-                            'due_Date': this.dueDate,
+                            'start_Date': this.startDate.millisecondsSinceEpoch,
+                            'due_Date': this.dueDate.millisecondsSinceEpoch,
                             'progress': this.progress,
                         })).then((_){
                           Navigator.pop(context, true);
