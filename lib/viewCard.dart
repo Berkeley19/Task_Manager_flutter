@@ -120,7 +120,7 @@ void deleteDialog() {
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
-        title: new Text('New Task'),
+        title: widget.task != null ? new Text(widget.task.title) : Text('New Task'),
         actions: widget.task != null ? <Widget>[ 
           IconButton(
             icon: new Icon(Icons.delete),
@@ -163,6 +163,7 @@ void deleteDialog() {
               new Container(
                 child: Column(
                   children: <Widget>[
+                    
                     new Text('Progress percentage at ${this.progress}%'),
                     new Slider(
                     min: 0.0,
