@@ -46,20 +46,18 @@ Widget _datePicker(DatePicker date){
   DateTime initialValue;
   switch(date){
     case DatePicker.StartDate: 
-      if(widget.task != null){
-        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
-      }
-      else{
-        initialValue = DateTime.now();
-      }
-      break;
+        if(widget.task != null){
+          initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
+        }else{
+          initialValue = DateTime.now();
+        }
+        break;
     case DatePicker.DueDate:
-      if(widget.task !=null){
-        initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);  
-      }else{
-        initialValue = DateTime.now();
-      }
-      
+        if(widget.task != null){
+          initialValue = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
+        }else{
+          initialValue = DateTime.now();
+        }  
   }
   return new GestureDetector(
     onTap: (){
@@ -79,7 +77,7 @@ Widget _datePicker(DatePicker date){
     },
     child: ListTile(
       leading: date == DatePicker.StartDate ? new Text('Start date'): new Text('Due Date'),
-      title: date == DatePicker.StartDate ? Text(new DateFormat('MMM, dd yyyy').format(this.startDate)) : Text(new DateFormat('MMM, dd yyyy').format(this.dueDate)),
+      title: date == DatePicker.StartDate ? Text(new DateFormat('MMM, dd yyyy').format(initialValue)) : Text(new DateFormat('MMM, dd yyyy').format(initialValue)),
     )
   );
 }
