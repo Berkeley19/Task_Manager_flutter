@@ -120,8 +120,8 @@ class HomePageState extends State<HomePage>{
     int globalProgress;
     int daysLeft;
     double textProgress;
-    String overDue = 'Overdue';
     bool endOfTask = false;
+    bool completedEndOfTask = false;
     switch(type){
       case ProgressType.DueDate:
         var dateNow = DateTime.now();
@@ -144,24 +144,32 @@ class HomePageState extends State<HomePage>{
         textProgress = globalProgress / 100;
         break;    
     }if(ProgressType.Progress ==  type){
-      return new Stack(
-      alignment: AlignmentDirectional.center,
-      children: <Widget>[
-        // circular progress bar + percentage
-        Positioned(child: new Text("$globalProgress%", 
-        overflow: TextOverflow.clip, textAlign: TextAlign.center,)
+      return new Column(
+        children:<Widget>[
+          new Padding (padding: EdgeInsets.all(4.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Days Left')),
+          new Stack(
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+              new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
+              Positioned(child: new Text("$globalProgress%", 
+              overflow: TextOverflow.clip, textAlign: TextAlign.center,)
+              ),
+        ]
         ),
-      ]);
-    }else{
+        ]
+      );
+    }else if(ProgressType.DueDate == type){
       return new Column(
           children:<Widget>[
-            new Card(
-              child: endOfTask == true ? new Text('$overDue') : new Text('Days Left'),
+            new Padding (padding: EdgeInsets.all(4.0), child: endOfTask == true ? new Text('Overdue') : new Text('Days Left')),
+            new Stack(
+              alignment: AlignmentDirectional.center,
+              children: <Widget>[
+                new CircularProgressIndicator(value: globalProgress.toDouble(), valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
+                new Text(endOfTask == true ? '' : '$daysLeft'),
+              ] 
             ),
-            new Card(
-              child: endOfTask == true ? new Text('') : new Text('$daysLeft'),
-            ),
-            new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
+            
           ]
       );
     }
