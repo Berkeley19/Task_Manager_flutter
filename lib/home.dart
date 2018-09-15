@@ -148,10 +148,19 @@ class HomePageState extends State<HomePage>{
   Widget mainList() {
     return new ListView(
       shrinkWrap: true,
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(6.0),
       children: <Widget>[
         new Column(
-          children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [],
+          children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [
+              new Align(
+                child: Wrap(
+                  children: [
+                    new Icon(Icons.note, size: 125.0),
+                    new Title(child: Text('No tasks in progress'), color: Colors.amberAccent),
+                ],
+                ),
+              )
+          ],
         ),
         new Column(
             children: this.manager.completed.isEmpty == false ? taskBuilder("Complete", ProgressState.Completed) : <Widget> [],
