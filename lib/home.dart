@@ -152,14 +152,11 @@ class HomePageState extends State<HomePage>{
       children: <Widget>[
         new Column(
           children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [
-              new Align(
-                alignment: Alignment.topCenter,
-                child: Wrap(
-                  children: [
-                    new Icon(Icons.note, size: 100.0),
-                    new Title(child: Text('No tasks in progress'), color: Colors.black),
+              new Column(
+                children: <Widget>[
+                  new Icon(Icons.note_add, size: 100.0,),
+                  new Text('No task in progress', style: new TextStyle(fontWeight: FontWeight.bold),),
                 ],
-                ),
               )
           ],
         ),
