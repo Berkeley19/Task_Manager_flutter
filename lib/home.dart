@@ -120,6 +120,8 @@ class HomePageState extends State<HomePage>{
     int globalProgress;
     int daysLeft;
     double textProgress;
+    String overDue = 'Overdue';
+    bool endOfTask = false;
     switch(type){
       case ProgressType.DueDate:
         var dateNow = DateTime.now();
@@ -129,7 +131,13 @@ class HomePageState extends State<HomePage>{
         // textProgress = dateDiff2 / dateDiff1;
         // globalProgress = (textProgress * 100).toInt();
         daysLeft = DateTime.fromMillisecondsSinceEpoch(dateDiff1).day;
+        if(daysLeft == 0){
+          daysLeft = 0;
+          endOfTask = true;
+
+        }
         break;
+        
       case ProgressType.Progress:
         globalProgress = progress;
         textProgress = globalProgress / 100;
@@ -145,8 +153,15 @@ class HomePageState extends State<HomePage>{
         ),
       ]);
     }else{
-      return new Card(
-          child: daysLeft == 1 ? new Text('You have $daysLeft day left') : new Text('You have $daysLeft days left'),
+      return new Column(
+          children:<Widget>[
+            new Card(
+              child: endOfTask == true ? new Text('$overDue') : new Text('Days Left'),
+            ),
+            new Card(
+              child: endOfTask == true ? new Text('') : new Text('$daysLeft'),
+            )
+          ]
       );
     }
   }
