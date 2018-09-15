@@ -146,7 +146,7 @@ class HomePageState extends State<HomePage>{
     }if(ProgressType.Progress ==  type){
       return new Column(
         children:<Widget>[
-          new Padding (padding: EdgeInsets.all(4.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Days Left')),
+          new Padding (padding: EdgeInsets.all(4.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Progress')),
           new Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
@@ -165,7 +165,7 @@ class HomePageState extends State<HomePage>{
             new Stack(
               alignment: AlignmentDirectional.center,
               children: <Widget>[
-                new CircularProgressIndicator(value: globalProgress.toDouble(), valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
+                new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)),
                 new Text(endOfTask == true ? '' : '$daysLeft'),
               ] 
             ),
