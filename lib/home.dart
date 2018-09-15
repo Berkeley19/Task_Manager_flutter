@@ -155,7 +155,7 @@ class HomePageState extends State<HomePage>{
               new Column(
                 children: <Widget>[
                   new Icon(Icons.note_add, size: 100.0,),
-                  new Text('No task in progress', style: new TextStyle(fontWeight: FontWeight.bold),),
+                  new Text('No tasks in progress', style: new TextStyle(fontWeight: FontWeight.bold),),
                 ],
               )
           ],
