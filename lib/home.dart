@@ -27,6 +27,7 @@ class HomePageState extends State<HomePage>{
             if (snapshot.hasData) {
               if (snapshot.data!=null) {
                 return new Scaffold( 
+                  resizeToAvoidBottomPadding: false,
                   appBar: new AppBar(title:new Text('Task App'), elevation: 5.0), 
                   body: mainList(), 
                   floatingActionButton: RaisedButton( 
@@ -117,32 +118,37 @@ class HomePageState extends State<HomePage>{
 
   Widget progressStack(int progress, ProgressType type, {int startDate, int dueTime}) {
     int globalProgress;
+    int daysLeft;
     double textProgress;
     switch(type){
       case ProgressType.DueDate:
         var dateNow = DateTime.now();
         int dateDiff1 = dueTime - startDate;
-        int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
-        textProgress = dateDiff2 / dateDiff1;
-        globalProgress = (textProgress * 100).toInt();
-        if(globalProgress > 100){
-          globalProgress = 100;
-        }
+        print(DateTime.fromMillisecondsSinceEpoch(dateDiff1).day);
+        // int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
+        // textProgress = dateDiff2 / dateDiff1;
+        // globalProgress = (textProgress * 100).toInt();
+        daysLeft = DateTime.fromMillisecondsSinceEpoch(dateDiff1).day;
         break;
       case ProgressType.Progress:
         globalProgress = progress;
         textProgress = globalProgress / 100;
         break;    
-    }
-    return new Stack(
+    }if(ProgressType.Progress ==  type){
+      return new Stack(
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         // circular progress bar + percentage
-        CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
+        //CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
         Positioned(child: new Text("$globalProgress%", 
         overflow: TextOverflow.clip, textAlign: TextAlign.center,)
         ),
       ]);
+    }else{
+      return new Card(
+          child: daysLeft == 1 ? new Text('You have $daysLeft day left') : new Text('You have $daysLeft days left'),
+      );
+    }
   }
 
   Widget mainList() {

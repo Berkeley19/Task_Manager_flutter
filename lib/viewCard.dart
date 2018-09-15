@@ -51,7 +51,7 @@ class ViewCardState extends State<ViewCard> {
           showDatePicker(
             context: context,
             initialDate: date == DatePicker.StartDate ? this.startDate : this.dueDate,
-            firstDate: new DateTime(1971),
+            firstDate: new DateTime(1970),
             lastDate: new DateTime(2120),
           ).then((DateTime value) {
             if (value == null) {
@@ -65,6 +65,7 @@ class ViewCardState extends State<ViewCard> {
           });
         },
         child: ListTile(
+          
           leading: date == DatePicker.StartDate
               ? new Text('Start date')
               : new Text('Due Date'),
@@ -108,6 +109,7 @@ class ViewCardState extends State<ViewCard> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       appBar: new AppBar(
         title: widget.task != null ? new Text(widget.task.title) : Text('New Task'),
