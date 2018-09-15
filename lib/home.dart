@@ -127,14 +127,15 @@ class HomePageState extends State<HomePage>{
         var dateNow = DateTime.now();
         int dateDiff1 = dueTime - startDate;
         print(DateTime.fromMillisecondsSinceEpoch(dateDiff1).day);
-        // int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
-        // textProgress = dateDiff2 / dateDiff1;
-        // globalProgress = (textProgress * 100).toInt();
+        int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
+        textProgress = dateDiff2 / dateDiff1;
+        globalProgress = (textProgress * 100).toInt();
         daysLeft = DateTime.fromMillisecondsSinceEpoch(dateDiff1).day;
         if(daysLeft == 0){
           daysLeft = 0;
           endOfTask = true;
-
+        }if(globalProgress > 100){	        
+          globalProgress = 100;	        
         }
         break;
         
@@ -147,7 +148,6 @@ class HomePageState extends State<HomePage>{
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         // circular progress bar + percentage
-        //CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
         Positioned(child: new Text("$globalProgress%", 
         overflow: TextOverflow.clip, textAlign: TextAlign.center,)
         ),
@@ -160,7 +160,8 @@ class HomePageState extends State<HomePage>{
             ),
             new Card(
               child: endOfTask == true ? new Text('') : new Text('$daysLeft'),
-            )
+            ),
+            new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan)),
           ]
       );
     }
