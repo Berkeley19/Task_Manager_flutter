@@ -155,8 +155,8 @@ class HomePageState extends State<HomePage>{
               new Align(
                 child: Wrap(
                   children: [
-                    new Icon(Icons.note, size: 125.0),
-                    new Title(child: Text('No tasks in progress'), color: Colors.amberAccent),
+                    new Icon(Icons.note, size: 100.0),
+                    new Title(child: Text('No tasks in progress'), color: Colors.black),
                 ],
                 ),
               )
