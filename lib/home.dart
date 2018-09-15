@@ -153,6 +153,7 @@ class HomePageState extends State<HomePage>{
         new Column(
           children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [
               new Align(
+                alignment: Alignment.topCenter,
                 child: Wrap(
                   children: [
                     new Icon(Icons.note, size: 100.0),
