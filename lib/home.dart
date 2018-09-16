@@ -166,7 +166,9 @@ class HomePageState extends State<HomePage>{
               alignment: AlignmentDirectional.center,
               children: <Widget>[
                 new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)),
-                new Text(endOfTask == true ? '' : '$daysLeft'),
+                Positioned(child: new Text(endOfTask == true ? '' : '$daysLeft', 
+                overflow: TextOverflow.clip, textAlign: TextAlign.center,),
+                ),
               ] 
             ),
             
