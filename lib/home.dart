@@ -135,7 +135,8 @@ class HomePageState extends State<HomePage>{
           daysLeft = 0;
           endOfTask = true;
         }if(globalProgress > 100){	        
-          globalProgress = 100;	        
+          globalProgress = 100;	      
+          completedEndOfTask = true;  
         }
         break;
         
@@ -166,12 +167,11 @@ class HomePageState extends State<HomePage>{
               alignment: AlignmentDirectional.center,
               children: <Widget>[
                 new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)),
-                Positioned(child: new Text(endOfTask == true ? '' : '$daysLeft', 
+                Positioned(child: new Text(endOfTask == true ? Icon(Icons.error) : '$daysLeft', 
                 overflow: TextOverflow.clip, textAlign: TextAlign.center,),
                 ),
               ] 
             ),
-            
           ]
       );
     }
