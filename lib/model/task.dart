@@ -26,7 +26,7 @@ class Task{
     this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
-    this._viewCardList = obj['view_Card_list'];
+    this._viewCardList = obj['view_Card_List'];
   }
 
   String get title => _title;
@@ -48,6 +48,7 @@ class Task{
     map['start_Date'] = _startDate;
     map['due_Date'] = _dueDate;
     map['progress'] = _progress;
+    map['viewCard'] = _viewCardList;
 
     return map;
   }
