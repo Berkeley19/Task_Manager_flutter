@@ -17,6 +17,8 @@ class DataBaseHelper{
   final String columnDueDate = 'due_Date';
   final String columnStartDate = 'start_Date';
   final String columnProgress = 'progress';
+  final String columnViewCardTitle = 'view_Card_Title';
+  final String columnViewCardIsCheck = 'view_Card_Check';
 
 
   List<Task> completed = [];
