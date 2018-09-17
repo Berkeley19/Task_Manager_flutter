@@ -22,6 +22,7 @@ class ViewCardState extends State<ViewCard> {
   DateTime startDate = DateTime.now();
   DateTime dueDate = DateTime.now();
   int progress = 0;
+  List<ViewCardItem> viewCardList = List<ViewCardItem>();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -33,6 +34,7 @@ class ViewCardState extends State<ViewCard> {
       this.startDate = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
       this.dueDate = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
       this.progress = widget.task.progress;
+      this.viewCardList = widget.task.viewCardList;
     } else {
     }
   }
