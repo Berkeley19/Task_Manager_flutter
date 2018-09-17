@@ -60,7 +60,7 @@ class Task{
     this._dueDate = map['due_Date'];
     this._progress = map['progress'];
     this._id = map['id'];
-
+    this._viewCardList = map['view_Card_List'];
   }
   
 }
