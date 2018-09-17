@@ -199,6 +199,7 @@ class ViewCardState extends State<ViewCard> {
                           'start_Date': this.startDate.millisecondsSinceEpoch,
                           'due_Date': this.dueDate.millisecondsSinceEpoch,
                           'progress': this.progress,
+                          'view_Card_List': this.viewCardList,
                         }))
                             .then((_) {
                           Navigator.pop(context, true);
@@ -211,7 +212,8 @@ class ViewCardState extends State<ViewCard> {
                                 this.notes,
                                 this.startDate.millisecondsSinceEpoch,
                                 this.dueDate.millisecondsSinceEpoch,
-                                this.progress))
+                                this.progress,
+                                this.viewCardList))
                             .then((_) {
                           Navigator.pop(context, true);
                         });
