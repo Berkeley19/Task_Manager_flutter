@@ -23,6 +23,7 @@ class ViewCardState extends State<ViewCard> {
   DateTime dueDate = DateTime.now();
   int progress = 0;
   int checkBoxStatus = 0;
+  String checkBoxTitle = '';
   List<ViewCardItem> viewCardList = List<ViewCardItem>();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
