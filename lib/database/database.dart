@@ -48,7 +48,7 @@ class DataBaseHelper{
   }
   
   _onCreate(Database db, int newVersion) async {
-      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER)");
+      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER, $columnViewCardIsCheck INTEGER, $columnViewCardTitle TEXT)");
       print("created tables");
   }
 
@@ -62,7 +62,7 @@ class DataBaseHelper{
 
   Future<bool> getAllTasks() async {
     var dbClient = await db;
-    var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
+    var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress, columnViewCardIsCheck, columnViewCardTitle]);
     completed.clear();
     inProgress.clear();
     overDue.clear();
@@ -84,7 +84,7 @@ class DataBaseHelper{
   Future<Task> getTask(int id) async{
       var dbClient = await db;
        List<Map> result = await dbClient.query(taskTable,
-        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress],
+        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress, columnViewCardIsCheck, columnViewCardTitle],
         where: '$columnId = ?',
         whereArgs: [id]);
       print(result.length);
