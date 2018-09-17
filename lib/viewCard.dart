@@ -24,6 +24,7 @@ class ViewCardState extends State<ViewCard> {
   int progress = 0;
   List<ViewCardItem> viewCardList = List<ViewCardItem>();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  
 
   @override
   void initState() {
@@ -164,12 +165,19 @@ class ViewCardState extends State<ViewCard> {
                     max: 100.0,
                     value: this.progress.toDouble(),
                     activeColor:
-                        this.progress == 100 ? Colors.green : Colors.deepOrange,
+                        Color.lerp(Colors.red, Colors.green, this.progress/100),
                     onChanged: (double value) {changeProgress(value);
                     },
                   )
                 ],
               )),
+              new Container(
+                child: ListTile(
+                  leading: Checkbox(
+                    onChanged: 
+                  )
+                )
+              ),
               new Container(
                 margin: const EdgeInsets.only(top: 10.0),
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
