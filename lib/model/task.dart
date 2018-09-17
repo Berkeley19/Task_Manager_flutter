@@ -20,7 +20,7 @@ class Task{
     this._title = obj['title'];
     this._notes = obj['notes'];
     this._startDate = obj['start_Date'];
-    this._dueDate = obj['dueate'];
+    this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
   }
@@ -67,5 +67,7 @@ class ViewCardItem{
     this.viewCardIsCheck,
     this.viewCardTitle,
   );
+
+
 
 }
