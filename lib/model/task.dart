@@ -7,6 +7,8 @@ class Task{
   int _dueDate;
   int _progress;
   int _id;
+  List<ViewCardItem> viewCardList;
+  
   Task(
     this._title,
     this._notes,
@@ -67,7 +69,4 @@ class ViewCardItem{
     this.viewCardIsCheck,
     this.viewCardTitle,
   );
-
-
-
 }
