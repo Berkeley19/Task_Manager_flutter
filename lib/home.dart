@@ -126,7 +126,6 @@ class HomePageState extends State<HomePage>{
       case ProgressType.DueDate:
         var dateNow = DateTime.now();
         int dateDiff1 = dueTime - startDate;
-        print(DateTime.fromMillisecondsSinceEpoch(dateDiff1).day);
         int dateDiff2 = dateNow.millisecondsSinceEpoch - startDate;
         textProgress = dateDiff2 / dateDiff1;
         globalProgress = (textProgress * 100).toInt();
