@@ -172,13 +172,6 @@ class ViewCardState extends State<ViewCard> {
                 ],
               )),
               new Container(
-                child: ListTile(
-                  leading: Checkbox(
-                    onChanged: 
-                  )
-                )
-              ),
-              new Container(
                 margin: const EdgeInsets.only(top: 10.0),
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: new RaisedButton(
