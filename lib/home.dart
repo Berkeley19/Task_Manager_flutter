@@ -146,7 +146,7 @@ class HomePageState extends State<HomePage>{
     }if(ProgressType.Progress ==  type){
       return new Column(
         children:<Widget>[
-          new Padding (padding: EdgeInsets.all(4.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Progress')),
+          new Padding (padding: EdgeInsets.all(6.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Progress')),
           new Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
