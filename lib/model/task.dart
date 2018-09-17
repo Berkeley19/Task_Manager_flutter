@@ -58,3 +58,14 @@ class Task{
   }
   
 }
+
+class ViewCardItem{
+  String viewCardTitle;
+  bool viewCardIsCheck;
+
+  ViewCardItem(
+    this.viewCardIsCheck,
+    this.viewCardTitle,
+  );
+
+}
