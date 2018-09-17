@@ -165,7 +165,7 @@ class HomePageState extends State<HomePage>{
             new Stack(
               alignment: AlignmentDirectional.center,
               children: <Widget>[
-                new CircularProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)),
+                new LinearProgressIndicator(value: textProgress, valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)),
                 Positioned(child: new Text(endOfTask == true ? Icon(Icons.error) : '$daysLeft', 
                 overflow: TextOverflow.clip, textAlign: TextAlign.center,),
                 ),
