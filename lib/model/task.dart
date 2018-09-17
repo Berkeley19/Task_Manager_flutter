@@ -7,14 +7,15 @@ class Task{
   int _dueDate;
   int _progress;
   int _id;
-  List<ViewCardItem> viewCardList;
-  
+  List<ViewCardItem> _viewCardList;
+
   Task(
     this._title,
     this._notes,
     this._startDate, 
     this._dueDate,
     this._progress,
+    this._viewCardList,
     [this._id]
   );
 
@@ -25,6 +26,7 @@ class Task{
     this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
+    this._viewCardList = obj['view_Card_list'];
   }
 
   String get title => _title;
@@ -33,6 +35,7 @@ class Task{
   int get startDate => _startDate;
   int get progress => _progress;
   int get id => _id;
+  List get viewCardList=> _viewCardList;
 
 
   Map<String, dynamic> toMap() {
