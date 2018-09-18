@@ -34,7 +34,7 @@ class Task{
   int get startDate => _startDate;
   int get progress => _progress;
   int get id => _id;
-  List get viewCardList=> _viewCardList;
+  List get viewCardList=> _checkBoxItem;
 
 
   Map<String, dynamic> toMap() {
