@@ -47,7 +47,7 @@ class Task{
     map['start_Date'] = _startDate;
     map['due_Date'] = _dueDate;
     map['progress'] = _progress;
-    map['viewCard'] = _viewCardList;
+    map['viewCard'] = _checkBoxItem;
 
     return map;
   }
