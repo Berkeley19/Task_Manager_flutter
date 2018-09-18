@@ -7,7 +7,7 @@ class Task{
   int _dueDate;
   int _progress;
   int _id;
-  List<ViewCardItem> _viewCardList;
+  List<CheckboxItem> _viewCardList;
 
   Task(
     this._title,
@@ -15,7 +15,6 @@ class Task{
     this._startDate, 
     this._dueDate,
     this._progress,
-    this._viewCardList,
     [this._id]
   );
 
@@ -65,12 +64,12 @@ class Task{
   
 }
 
-class ViewCardItem{
-  String viewCardTitle;
-  bool viewCardIsCheck;
+class CheckBoxItem{
+  String checkBoxItemTitle;
+  bool checkBoxItemCheck;
 
-  ViewCardItem(
-    this.viewCardIsCheck,
-    this.viewCardTitle,
+  CheckBoxItem(
+    this.checkBoxItemCheck,
+    this.checkBoxItemTitle,
   );
 }
