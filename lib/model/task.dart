@@ -7,7 +7,7 @@ class Task{
   int _dueDate;
   int _progress;
   int _id;
-  List<CheckboxItem> _viewCardList;
+  List<CheckBoxItem> _checkBoxItem;
 
   Task(
     this._title,
@@ -25,7 +25,7 @@ class Task{
     this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
-    this._viewCardList = obj['view_Card_List'];
+    this._checkBoxItem = obj['view_Card_List'];
   }
 
   String get title => _title;
