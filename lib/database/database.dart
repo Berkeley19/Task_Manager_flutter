@@ -84,7 +84,7 @@ class DataBaseHelper{
   Future<Task> getTask(int id) async{
       var dbClient = await db;
        List<Map> result = await dbClient.query(taskTable,
-        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress, columnViewCardIsCheck, columnViewCardTitle],
+        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress, columnCheckBoxItemCheck, columnCheckBoxItemTitle],
         where: '$columnId = ?',
         whereArgs: [id]);
       print(result.length);
