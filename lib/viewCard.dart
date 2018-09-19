@@ -22,8 +22,6 @@ class ViewCardState extends State<ViewCard> {
   DateTime startDate = DateTime.now();
   DateTime dueDate = DateTime.now();
   int progress = 0;
-  int checkBoxStatus = 0;
-  String checkBoxTitle = '';
   List<CheckBoxItem> checkBoxItem = List<CheckBoxItem>();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
@@ -37,7 +35,7 @@ class ViewCardState extends State<ViewCard> {
       this.startDate = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
       this.dueDate = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
       this.progress = widget.task.progress;
-      this.checkBoxItem = widget.task.c;    
+      this.checkBoxItem = widget.task.viewCardList;    
       } else {
     }
   }
@@ -201,7 +199,7 @@ class ViewCardState extends State<ViewCard> {
                           'start_Date': this.startDate.millisecondsSinceEpoch,
                           'due_Date': this.dueDate.millisecondsSinceEpoch,
                           'progress': this.progress,
-                          'view_Card_List': this.viewCardList,
+                          'view_Card_List': this.checkBoxItem,
                         }))
                             .then((_) {
                           Navigator.pop(context, true);
