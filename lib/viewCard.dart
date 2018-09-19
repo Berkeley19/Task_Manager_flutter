@@ -37,7 +37,7 @@ class ViewCardState extends State<ViewCard> {
       this.startDate = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
       this.dueDate = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
       this.progress = widget.task.progress;
-      this.checkBoxStatus = widget.task.;    
+      this.checkBoxItem = widget.task.c;    
       } else {
     }
   }
