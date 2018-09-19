@@ -24,7 +24,7 @@ class ViewCardState extends State<ViewCard> {
   int progress = 0;
   int checkBoxStatus = 0;
   String checkBoxTitle = '';
-  List<ViewCardItem> viewCardList = List<ViewCardItem>();
+  List<CheckBoxItem> viewCardList = List<CheckBoxItem>();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
 
