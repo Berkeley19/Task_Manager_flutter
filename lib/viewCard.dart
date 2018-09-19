@@ -37,8 +37,8 @@ class ViewCardState extends State<ViewCard> {
       this.startDate = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
       this.dueDate = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
       this.progress = widget.task.progress;
-      this.viewCardList = widget.task.viewCardList;
-    } else {
+      this.viewCardList = widget.task.viewCardList;    
+      } else {
     }
   }
 
