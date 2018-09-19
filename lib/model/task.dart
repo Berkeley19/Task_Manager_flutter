@@ -15,6 +15,7 @@ class Task{
     this._startDate, 
     this._dueDate,
     this._progress,
+    this._checkBoxItem,
     [this._id]
   );
 
@@ -59,7 +60,7 @@ class Task{
     this._dueDate = map['due_Date'];
     this._progress = map['progress'];
     this._id = map['id'];
-    this._viewCardList = map['view_Card_List'];
+    this._checkBoxItem = map['view_Card_List'];
   }
   
 }
