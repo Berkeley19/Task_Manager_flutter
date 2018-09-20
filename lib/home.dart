@@ -146,7 +146,7 @@ class HomePageState extends State<HomePage>{
     }if(ProgressType.Progress ==  type){
       return new Column(
         children:<Widget>[
-          new Padding (padding: EdgeInsets.all(4.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Progress')),
+          new Padding (padding: EdgeInsets.all(6.0), child: completedEndOfTask == true ? new Text('Finished') : new Text('Progress')),
           new Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
@@ -161,7 +161,7 @@ class HomePageState extends State<HomePage>{
     }else if(ProgressType.DueDate == type){
       return new Column(
           children:<Widget>[
-            new Padding (padding: EdgeInsets.all(4.0), child: endOfTask == true ? new Text('Overdue') : new Text('Days Left')),
+            new Padding (padding: EdgeInsets.all(6.0), child: endOfTask == true ? new Text('Overdue') : new Text('Days Left')),
             new Stack(
               alignment: AlignmentDirectional.center,
               children: <Widget>[
@@ -185,7 +185,7 @@ class HomePageState extends State<HomePage>{
           children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [
               new Column(
                 children: <Widget>[
-                  new Icon(Icons.note_add, size: 55.0,),
+                  new Icon(Icons.note_add, size: 100.0,),
                   new Text('No tasks in progress', style: new TextStyle(fontWeight: FontWeight.bold),),
                 ],
               )
