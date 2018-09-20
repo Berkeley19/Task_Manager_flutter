@@ -213,7 +213,7 @@ class ViewCardState extends State<ViewCard> {
                                 this.startDate.millisecondsSinceEpoch,
                                 this.dueDate.millisecondsSinceEpoch,
                                 this.progress,
-                                this.))
+                                this.checkBoxItem))
                             .then((_) {
                           Navigator.pop(context, true);
                         });
