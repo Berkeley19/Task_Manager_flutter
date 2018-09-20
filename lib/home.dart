@@ -161,7 +161,7 @@ class HomePageState extends State<HomePage>{
     }else if(ProgressType.DueDate == type){
       return new Column(
           children:<Widget>[
-            new Padding (padding: EdgeInsets.all(6.0), child: endOfTask == true ? new Text('Overdue') : new Text('Days Left')),
+            new Padding (padding: EdgeInsets.all(4.0), child: endOfTask == true ? new Text('Overdue') : new Text('Days Left')),
             new Stack(
               alignment: AlignmentDirectional.center,
               children: <Widget>[
