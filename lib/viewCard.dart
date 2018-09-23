@@ -53,6 +53,7 @@ class ViewCardState extends State<ViewCard> {
 
     checkBoxCells.add(ListTile(title: new Text(checkBoxTitle)));
 
+
     return checkBoxCells;
 
     }
@@ -167,17 +168,19 @@ class ViewCardState extends State<ViewCard> {
               _datePicker(DatePicker.DueDate),
               new Container(
                   child: Column(
-                children: <Widget>[
-                  new Text('Progress percentage at ${this.progress}%'),
-                  new Slider(
-                    min: 0.0,
-                    max: 100.0,
-                    value: this.progress.toDouble(),
-                    activeColor:
-                        Color.lerp(Colors.red, Colors.green, this.progress/100),
-                    onChanged: (double value) {changeProgress(value);
-                    },
-                  )
+                  children: <Widget>[
+                  // new Text('Progress percentage at ${this.progress}%'),
+                  new Text('Add CheckList'),
+                 
+                  // new Slider(
+                  //   min: 0.0,
+                  //   max: 100.0,
+                  //   value: this.progress.toDouble(),
+                  //   activeColor:
+                  //       Color.lerp(Colors.red, Colors.green, this.progress/100),
+                  //   onChanged: (double value) {changeProgress(value);
+                  //   },
+                  // )
                 ],
               )),
               new Container(
