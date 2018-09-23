@@ -51,7 +51,7 @@ class ViewCardState extends State<ViewCard> {
   List<Widget> listBuilderCheckBox(String checkBoxTitle){
     List<Widget> checkBoxCells = [];
 
-    checkBoxCells.add(CheckboxListTile(title: new Text(checkBoxTitle)));
+    checkBoxCells.add(ListTile(title: new Text(checkBoxTitle)));
 
     return checkBoxCells;
 
