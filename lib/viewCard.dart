@@ -48,11 +48,14 @@ class ViewCardState extends State<ViewCard> {
     });
   }
 
-  List<Widget> listBuilderCheckBox(String checkBox){
+  List<Widget> listBuilderCheckBox(String checkBoxTitle){
     List<Widget> checkBoxCells = [];
 
+    checkBoxCells.add(CheckboxListTile(title: new Text(checkBoxTitle)));
 
-    } 
+    return checkBoxCells;
+
+    }
 
   Widget _datePicker(DatePicker date) {
     return new GestureDetector(
@@ -106,7 +109,7 @@ class ViewCardState extends State<ViewCard> {
                 },
               ),
               new FlatButton(
-                  child: const Text('cancel'),
+                  child: const Text('Cancel'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   })
