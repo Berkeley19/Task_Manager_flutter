@@ -48,6 +48,12 @@ class ViewCardState extends State<ViewCard> {
     });
   }
 
+  List<Widget> listBuilderCheckBox(String checkBox){
+    List<Widget> checkBoxCells = [];
+
+
+    } 
+
   Widget _datePicker(DatePicker date) {
     return new GestureDetector(
         onTap: () {
