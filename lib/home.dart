@@ -48,6 +48,8 @@ class HomePageState extends State<HomePage>{
         );
   }
 
+
+
   void forEachTaskAddToCell(List<Widget> taskCellsFunction, List<Task> taskType){
       taskType.forEach((task){
         return taskCellsFunction.add(taskCell(task));
@@ -185,7 +187,7 @@ class HomePageState extends State<HomePage>{
           children: this.manager.inProgress.isEmpty == false ? taskBuilder("In Progress", ProgressState.InProgress) : <Widget> [
               new Column(
                 children: <Widget>[
-                  new Icon(Icons.note_add, size: 120.0,),
+                  new Icon(Icons.note_add, size: 97.0,),
                   new Text('No tasks in progress', style: new TextStyle(fontWeight: FontWeight.bold),),
                 ],
               )
