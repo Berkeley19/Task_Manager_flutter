@@ -26,7 +26,7 @@ class Task{
     this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
-    this._checkBoxItem = obj['view_Card_List'];
+    this._checkBoxItem = obj['checkBoxItem'];
   }
 
   String get title => _title;
@@ -48,7 +48,7 @@ class Task{
     map['start_Date'] = _startDate;
     map['due_Date'] = _dueDate;
     map['progress'] = _progress;
-    map['viewCard'] = _checkBoxItem;
+    map['checkBoxItem'] = _checkBoxItem;
 
     return map;
   }
@@ -60,9 +60,8 @@ class Task{
     this._dueDate = map['due_Date'];
     this._progress = map['progress'];
     this._id = map['id'];
-    this._checkBoxItem = map['view_Card_List'];
+    this._checkBoxItem = map['checkBoxItem'];
   }
-  
 }
 
 class CheckBoxItem{
@@ -73,4 +72,9 @@ class CheckBoxItem{
     this.checkBoxItemCheck,
     this.checkBoxItemTitle,
   );
+
+  Map<String, bool> toMap() {
+    var map = new Map<String, bool>();
+    
+  }
 }

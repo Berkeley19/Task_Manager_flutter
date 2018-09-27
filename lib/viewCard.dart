@@ -23,6 +23,10 @@ class ViewCardState extends State<ViewCard> {
   DateTime dueDate = DateTime.now();
   int progress = 0;
   List<CheckBoxItem> checkBoxItem;
+
+CheckBoxItem obj = new CheckBoxItem(checkBoxItemCheck, checkBoxItemTitle);
+List<CheckBoxItem> check = obj.
+
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
 
@@ -50,6 +54,7 @@ class ViewCardState extends State<ViewCard> {
 
   List<Widget> listBuilderCheckBox(String checkBoxTitle){
     List<Widget> checkBoxCells = [];
+
 
     checkBoxCells.add(ListTile(title: new Text(checkBoxTitle)));
 
