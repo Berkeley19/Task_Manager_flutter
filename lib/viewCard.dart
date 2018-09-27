@@ -22,7 +22,7 @@ class ViewCardState extends State<ViewCard> {
   DateTime startDate = DateTime.now();
   DateTime dueDate = DateTime.now();
   int progress = 0;
-  List<CheckBoxItem> checkBoxItem = List<CheckBoxItem>();
+  List<CheckBoxItem> checkBoxItem;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
 
@@ -35,7 +35,7 @@ class ViewCardState extends State<ViewCard> {
       this.startDate = DateTime.fromMillisecondsSinceEpoch(widget.task.startDate);
       this.dueDate = DateTime.fromMillisecondsSinceEpoch(widget.task.dueDate);
       this.progress = widget.task.progress;
-      this.checkBoxItem = widget.task.viewCardList;    
+      this.checkBoxItem = widget.task.checkBoxItem;    
       } else {
     }
   }
@@ -66,7 +66,7 @@ class ViewCardState extends State<ViewCard> {
             initialDate: date == DatePicker.StartDate ? this.startDate : this.dueDate,
             firstDate: new DateTime(1970),
             lastDate: new DateTime(2120),
-          ).then((DateTime value) {
+          ).then((DateTime value) { 
             if (value == null) {
               return;
             }
