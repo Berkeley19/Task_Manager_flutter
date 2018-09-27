@@ -171,7 +171,10 @@ class ViewCardState extends State<ViewCard> {
                   children: <Widget>[
                   // new Text('Progress percentage at ${this.progress}%'),
                   new Text('Add CheckList'),
-                 
+                  new TextFormField(
+                    keyboardType: TextInputType.text,
+                    decoration: new InputDecoration(labelText: 'Title'),
+                  )
                   // new Slider(
                   //   min: 0.0,
                   //   max: 100.0,
