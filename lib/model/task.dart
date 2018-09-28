@@ -7,7 +7,7 @@ class Task{
   int _dueDate;
   int _progress;
   int _id;
-  List<CheckBoxItem> _checkBoxItem;
+  List<CheckBoxItem> _checkBoxList;
 
   Task(
     this._title,
@@ -15,7 +15,7 @@ class Task{
     this._startDate, 
     this._dueDate,
     this._progress,
-    this._checkBoxItem,
+    this._checkBoxList,
     [this._id]
   );
 
@@ -26,7 +26,7 @@ class Task{
     this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
-    this._checkBoxItem = obj['checkBoxItem'];
+    this._checkBoxList = obj['checkBoxItem'];
   }
 
   String get title => _title;
@@ -35,7 +35,7 @@ class Task{
   int get startDate => _startDate;
   int get progress => _progress;
   int get id => _id;
-  List get checkBoxItem => _checkBoxItem;
+  List get checkBoxItem => _checkBoxList;
 
 
   Map<String, dynamic> toMap() {
@@ -48,7 +48,7 @@ class Task{
     map['start_Date'] = _startDate;
     map['due_Date'] = _dueDate;
     map['progress'] = _progress;
-    map['checkBoxItem'] = _checkBoxItem;
+    map['checkBoxItem'] = _checkBoxList;
 
     return map;
   }
@@ -60,7 +60,7 @@ class Task{
     this._dueDate = map['due_Date'];
     this._progress = map['progress'];
     this._id = map['id'];
-    this._checkBoxItem = map['checkBoxItem'];
+    this._checkBoxList = map['checkBoxItem'];
   }
 }
 
@@ -74,7 +74,7 @@ class CheckBoxItem{
   );
 
   Map<String, bool> toMap() {
-    var map = new Map<String, bool>();
-    
+  var map = new Map<String, bool>();
+  
   }
 }
