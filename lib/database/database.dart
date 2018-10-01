@@ -48,7 +48,7 @@ class DataBaseHelper{
   }
   
   _onCreate(Database db, int newVersion) async {
-      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER, $columnCheckBoxItemCheck INTEGER, $columnCheckBoxItemTitle TEXT)");
+      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER)");
       print("created tables");
   }
 
