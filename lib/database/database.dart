@@ -62,7 +62,7 @@ class DataBaseHelper{
 
   Future<bool> getAllTasks() async {
     var dbClient = await db;
-    var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress, columnCheckBoxItemCheck, columnCheckBoxItemTitle]);
+    var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
     completed.clear();
     inProgress.clear();
     overDue.clear();
