@@ -21,6 +21,7 @@ class DataBaseHelper{
   final String columnCheckBoxId = 'id';
   final String columnTaskId = 'task_Id';
   final String columnComplete = 'complete';
+  final String columnCheckBoxTitle = 'checkBoxTitle';
 
 
   List<Task> completed = [];
@@ -51,7 +52,7 @@ class DataBaseHelper{
   
   _onCreate(Database db, int newVersion) async {
       await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER);"
-                       "CREATE TABLE IF NOT EXISTS $checkBoxTable($) ");
+                       "CREATE TABLE IF NOT EXISTS $checkBoxTable($columnCheckBoxId INTEGER PRIMARY KEY, $c) ");
       print("created tables");
   }
 
