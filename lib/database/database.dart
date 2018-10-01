@@ -17,6 +17,7 @@ class DataBaseHelper{
   final String columnDueDate = 'due_Date';
   final String columnStartDate = 'start_Date';
   final String columnProgress = 'progress';
+  final String checkBoxTable = 'CheckBoxTable';
 
 
   List<Task> completed = [];
@@ -46,7 +47,8 @@ class DataBaseHelper{
   }
   
   _onCreate(Database db, int newVersion) async {
-      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER)");
+      await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER);"
+                       "CREATE TABLE IF NOT EXISTS $c ");
       print("created tables");
   }
 
@@ -58,7 +60,7 @@ class DataBaseHelper{
       return result;
     }
 
-  Future<
+  Future<> get
 
   Future<bool> getAllTasks() async {
     var dbClient = await db;
