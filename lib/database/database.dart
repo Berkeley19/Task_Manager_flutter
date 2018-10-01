@@ -52,7 +52,7 @@ class DataBaseHelper{
   
   _onCreate(Database db, int newVersion) async {
       await db.execute("CREATE TABLE IF NOT EXISTS $taskTable($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnNotes TEXT, $columnStartDate INTEGER, $columnDueDate INTEGER, $columnProgress INTEGER);"
-                       "CREATE TABLE IF NOT EXISTS $checkBoxTable($columnCheckBoxId INTEGER PRIMARY KEY, $c) ");
+                       "CREATE TABLE IF NOT EXISTS $checkBoxTable($columnCheckBoxId INTEGER PRIMARY KEY, $columnCheckBoxTitle TEXT, $columnComplete INTEGER, CONSTRAINT $columnTaskId FOREIGN KEY ($columnId) REFERENCES $taskTable($columnId));");
       print("created tables");
   }
 
@@ -63,9 +63,7 @@ class DataBaseHelper{
       print('savetask');
       return result;
     }
-
-  Future<> get
-
+    
   Future<bool> getAllTasks() async {
     var dbClient = await db;
     var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
