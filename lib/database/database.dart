@@ -60,6 +60,8 @@ class DataBaseHelper{
       return result;
     }
 
+  Future<
+
   Future<bool> getAllTasks() async {
     var dbClient = await db;
     var result = await dbClient.query(taskTable, columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress]);
@@ -84,7 +86,7 @@ class DataBaseHelper{
   Future<Task> getTask(int id) async{
       var dbClient = await db;
        List<Map> result = await dbClient.query(taskTable,
-        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress, columnCheckBoxItemCheck, columnCheckBoxItemTitle],
+        columns: [columnId, columnTitle, columnNotes, columnStartDate, columnDueDate, columnProgress],
         where: '$columnId = ?',
         whereArgs: [id]);
       print(result.length);
