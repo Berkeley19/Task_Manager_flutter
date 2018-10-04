@@ -15,8 +15,8 @@ class Task{
     this._startDate, 
     this._dueDate,
     this._progress,
-    this._checkBoxList,
-    [this._id]
+    [this._checkBoxList, 
+    this._id]
   );
 
   Task.map(dynamic obj){
@@ -26,7 +26,7 @@ class Task{
     this._dueDate = obj['due_Date'];
     this._progress = obj['progress'];
     this._id = obj['id'];
-    this._checkBoxList = obj['checkBoxList'];
+    
   }
 
   String get title => _title;
@@ -35,7 +35,6 @@ class Task{
   int get startDate => _startDate;
   int get progress => _progress;
   int get id => _id;
-  List get checkBoxList => _checkBoxList;
 
 
   Map<String, dynamic> toMap() {
@@ -48,7 +47,6 @@ class Task{
     map['start_Date'] = _startDate;
     map['due_Date'] = _dueDate;
     map['progress'] = _progress;
-    map['checkBoxList'] = _checkBoxList;
 
     return map;
   }
@@ -60,7 +58,6 @@ class Task{
     this._dueDate = map['due_Date'];
     this._progress = map['progress'];
     this._id = map['id'];
-    this._checkBoxList = map['checkBoxList'];
   }
 }
 
