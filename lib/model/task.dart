@@ -7,16 +7,14 @@ class Task{
   int _dueDate;
   int _progress;
   int _id;
-  List<CheckBoxItem> _checkBoxList;
 
   Task(
     this._title,
     this._notes,
     this._startDate, 
     this._dueDate,
-    this._progress,
-    [this._checkBoxList, 
-    this._id]
+    this._progress, 
+    [this._id]
   );
 
   Task.map(dynamic obj){
@@ -63,15 +61,28 @@ class Task{
 
 class CheckBoxItem{
   String checkBoxItemTitle;
-  bool checkBoxItemCheck;
+  int checkBoxItemCheck = 0;
+  int checkBoxItemId;
+  int taskId;
+
 
   CheckBoxItem(
     this.checkBoxItemCheck,
     this.checkBoxItemTitle,
+    this.taskId,
+    [this.checkBoxItemId]
   );
+
+  CheckBoxItem.map(dynamic obj){
+    this.checkBoxItemCheck = obj['check_Box_Item_Check'];
+    this.checkBoxItemTitle = obj['check_Box_Item_Title'];
+    this.taskId = obj['task_Id'];
+    this.checkBoxItemId =obj['check_Box_Item_Id'];
+  }
 
   Map<String, bool> toMap() {
   var map = new Map<String, bool>();
+
   
   }
 }
