@@ -79,10 +79,19 @@ class CheckBoxItem{
     this.taskId = obj['task_Id'];
     this.checkBoxItemId =obj['check_Box_Item_Id'];
   }
-
-  Map<String, bool> toMap() {
-  var map = new Map<String, bool>();
+  
+  
+  Map<String, dynamic> toMap() {
+  var map = new Map<String, dynamic>();
+  if(checkBoxItemId != null){
+    map['check_Box_Item_Id'] = checkBoxItemId;
+  }
+  map['check_Box_Item_Title'] = checkBoxItemTitle;
+  map['check_Box_Item_Check'] = checkBoxItemCheck;
+  map['task_Id'] = taskId;
+  
+  return map;
+  }
 
   
-  }
 }
