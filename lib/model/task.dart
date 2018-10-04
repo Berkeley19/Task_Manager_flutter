@@ -93,5 +93,10 @@ class CheckBoxItem{
   return map;
   }
 
-  
+  CheckBoxItem.fromMap(Map<String, dynamic> map){
+    this.taskId = map['task_Id'];
+    this.checkBoxItemCheck = map['check_Box_Item_Check'];
+    this.checkBoxItemId = map['check_Box_Item_Id'];
+    this.checkBoxItemTitle = map['check_Box_Item_Title'];
+  }
 }
