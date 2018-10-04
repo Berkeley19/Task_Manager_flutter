@@ -22,7 +22,8 @@ class ViewCardState extends State<ViewCard> {
   DateTime startDate = DateTime.now();
   DateTime dueDate = DateTime.now();
   int progress = 0;
-  List<CheckBoxItem> checkBoxItem = new List();
+  List<CheckBoxItem> checkBoxList = new List();
+  CheckBoxItem checkBoxItem;
 
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
@@ -52,12 +53,19 @@ class ViewCardState extends State<ViewCard> {
     List<Widget> checkBoxCells = [];
 
 
-    checkBoxCells.add(ListTile(title: new Text(checkBoxTitle)));
+    checkBoxCells.add(Text('CheckBox'));
 
+    checkBoxList.forEach((item){
+      return checkBoxCells.add(checkBoxCell(item));
+    });
 
     return checkBoxCells;
 
     }
+
+  Widget checkBoxCell(CheckBoxItem checkBoxItem){
+
+  }
 
   Widget _datePicker(DatePicker date) {
     return new GestureDetector(
