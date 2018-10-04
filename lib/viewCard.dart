@@ -55,7 +55,7 @@ class ViewCardState extends State<ViewCard> {
 
     checkBoxCells.add(Text('CheckBox'));
 
-    checkBoxList.forEach((item){
+    this.viewManager.checkBoxes.forEach((item){
       return checkBoxCells.add(checkBoxCell(item));
     });
 
@@ -64,7 +64,7 @@ class ViewCardState extends State<ViewCard> {
     }
 
   Widget checkBoxCell(CheckBoxItem checkBoxItem){
-
+    
   }
 
   Widget _datePicker(DatePicker date) {

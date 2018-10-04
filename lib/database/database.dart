@@ -27,6 +27,7 @@ class DataBaseHelper{
   List<Task> completed = [];
   List<Task> inProgress = [];
   List<Task> overDue = [];
+  List<CheckBoxItem> checkBoxes = [];
 
   static Database _db;
 
@@ -56,6 +57,8 @@ class DataBaseHelper{
       print("created tables");
   }
 
+
+  
   Future<int> saveTask(Task task) async{
       var dbClient = await db;
       print('savetaskb4');
