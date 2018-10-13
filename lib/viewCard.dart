@@ -23,6 +23,8 @@ class ViewCardState extends State<ViewCard> {
   DateTime dueDate = DateTime.now();
   int progress = 0;
   List<CheckBoxItem> checkBoxList = new List();
+  String viewCheckBoxTitle = '';
+  int viewCheckBoxBool = 0;
   CheckBoxItem checkBoxItem;
 
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -49,23 +51,13 @@ class ViewCardState extends State<ViewCard> {
     });
   }
 
-  List<Widget> listBuilderCheckBox(String checkBoxTitle){
-    List<Widget> checkBoxCells = [];
 
-
-    checkBoxCells.add(Text('CheckBox'));
-
-    this.viewManager.checkBoxes.forEach((item){
-      return checkBoxCells.add(checkBoxCell(item));
-    });
-
-    return checkBoxCells;
-
-    }
-
-  Widget checkBoxCell(CheckBoxItem checkBoxItem){
-    
+  Widget addCheckBoxCell(CheckBoxItem checkBoxItem){
+    return new Checkbox()
   }
+
+
+  
 
   Widget _datePicker(DatePicker date) {
     return new GestureDetector(
@@ -176,25 +168,17 @@ class ViewCardState extends State<ViewCard> {
               _datePicker(DatePicker.StartDate),
               _datePicker(DatePicker.DueDate),
               new Container(
-                  child: Column(
-                  children: <Widget>[
-                  // new Text('Progress percentage at ${this.progress}%'),
-                  new Text('Add CheckList'),
-                  new TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: new InputDecoration(labelText: 'Title'),
-                  )
-                  // new Slider(
-                  //   min: 0.0,
-                  //   max: 100.0,
-                  //   value: this.progress.toDouble(),
-                  //   activeColor:
-                  //       Color.lerp(Colors.red, Colors.green, this.progress/100),
-                  //   onChanged: (double value) {changeProgress(value);
-                  //   },
-                  // )
-                ],
-              )),
+                  alignment: Alignment.centerLeft,
+                  child: new Text('CheckList'),
+              ),
+              new Container(
+                child: new FlatButton(
+                  onPressed: listBuilderCheckBox(checkBoxTitle)
+                )
+              )
+              // new Container(
+              //   child: 
+              // ),
               new Container(
                 margin: const EdgeInsets.only(top: 10.0),
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
