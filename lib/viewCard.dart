@@ -26,6 +26,7 @@ class ViewCardState extends State<ViewCard> {
   String viewCheckBoxTitle = '';
   int viewCheckBoxBool = 0;
   CheckBoxItem checkBoxItem;
+  List<Widget> checkBoxWidgetList = [];
 
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   
@@ -51,9 +52,30 @@ class ViewCardState extends State<ViewCard> {
     });
   }
 
+  void onChanged(bool value){
+    setState(() {
+          value == false ? viewCheckBoxBool = 0 : viewCheckBoxBool = 1;
+        });
+  }
 
-  Widget addCheckBoxCell(CheckBoxItem checkBoxItem){
-    return new Checkbox()
+  Widget returnCheckBox(){
+    return new Card(
+      margin: EdgeInsets.all(6.0),
+      child: new Checkbox(
+        value: viewCheckBoxBool == 0 ? false : true,
+        onChanged: (bool value){
+          onChanged(value);
+        },
+      )
+    );
+  }
+
+  void addCheckBoxCell(){
+    checkBoxWidgetList.add(returnCheckBox());
+  }
+
+  List<Widget> checkBoxListFunction(){
+    return checkBoxWidgetList;
   }
 
 
@@ -171,11 +193,18 @@ class ViewCardState extends State<ViewCard> {
                   alignment: Alignment.centerLeft,
                   child: new Text('CheckList'),
               ),
+              new Column(
+                children: checkBoxListFunction(),
+              ),
               new Container(
+                alignment: Alignment.center,
                 child: new FlatButton(
-                  onPressed: listBuilderCheckBox(checkBoxTitle)
+                  child: new Text('Add'),
+                  onPressed: (){
+                    addCheckBoxCell();
+                  }
                 )
-              )
+              ),
               // new Container(
               //   child: 
               // ),
