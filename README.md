@@ -1,8 +1,5 @@
-# project_app_tasks
+# TODO_Flutter_Application
 
-A new Flutter project.
+## Installation process to run Flutter application
 
-## Getting Started
-
-For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
