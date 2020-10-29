@@ -1,6 +1,6 @@
 # TODO_Flutter_Application
 
-## Installation process to run Flutter application
+## Installation process to run Task manager app
 
 [Installation Process](https://flutter.dev/docs/get-started/install).
 Be sure to run flutter doctor command to make sure everything is in order
