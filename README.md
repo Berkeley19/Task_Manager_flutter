@@ -1,4 +1,4 @@
-# TODO_Flutter_Application
+# Task_Manager_Flutter_Application
 
 ## Installation process to run Task manager app
 
